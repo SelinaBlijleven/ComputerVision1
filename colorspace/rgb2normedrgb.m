@@ -7,8 +7,8 @@ for row = 1:size(input_image, 1)
         R = input_image(row, column, 1);
         G = input_image(row, column, 2);
         B = input_image(row, column, 3);
-        sum = sum(output_image(row, column));
-        output_image(row, column, :) = [R/sum, G/sum, B/sum];
+        sum_values = R + G + B;
+        output_image(row, column, :) = [R/sum_values, G/sum_values, B/sum_values];
     end
 end
 end
