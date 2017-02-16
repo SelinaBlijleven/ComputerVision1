@@ -13,22 +13,17 @@ height_map = zeros(W, H);
 
 % for each pixel in the left column of height_map
 %   height_value = previous_height_value + corresponding_q_value
-prev_height_val = height_map(1, 1)
+prev_height_val = height_map(1, 1);
 
 for idy = 2:numel(H)
    height_map(1, idx) = prev_height_val + q(1, idx);
    prev_height_val = height_map(1, idx)
 end
 
-% TODO: Your code goes here
-% for each row
-%   for each element of the row except for leftmost
-%       height_value = previous_height_value + corresponding_p_value
+
+% height_value = previous_height_value + corresponding_p_value
 for idy = 1:numel(H)
-    for idx = 
-
-
-
-
+    for idx = 2:numel(W)
+        height_map(idx, idy) = prev_height_val + p(idx, idy);
+    end
 end
-

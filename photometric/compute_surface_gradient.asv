@@ -10,7 +10,7 @@ function [ albedo, normal, p, q ] = compute_surface_gradient( stack_images, scri
 
 W = size(stack_images, 1);
 H = size(stack_images, 2);
-N = size(stack_images, 3);
+N = size(stack_images, 3)
 
 % create arrays for 
 %   albedo, normal (3 components)
@@ -36,7 +36,7 @@ for idx = 1:numel(W)
         end        
         
         %   solve scriptI * scriptV * g = scriptI * i to obtain g for this point
-        g = inv(scriptI * scriptV) * (scriptI * i);
+        g = inv(scriptI * scriptV) * (scriptI * i)
         
         %   albedo at this point is |g|
         %   (same everywhere because we take the norm, not RGB)
@@ -44,17 +44,22 @@ for idx = 1:numel(W)
         
         %   TODO: Get normal 3-dimensional
         %   normal at this point is g / |g|
-        %normal(idx, idy) = g / norm(g);
+        normal(idx, idy) = g / norm(g)
         
         %   TODO: Check if computed with normals
         %   p at this point is N1 / N3
-        p(idx, idy) = normal(idx, idy, 1) / normal(idx, idy, 3);
+        p(idx, idy) = normal(idx, idy, 1) / normal(idx, idy, 3)
         
         %   TODO: Check if computed with normals
         %   q at this point is N2 / N3
-        q(idx, idy) = normal(idx, idy, 2) / normal(idx, idy, 3);
+        q(idx, idy) = normal(idx, idy, 2) / normal(idx, idy, 3)
     end
 end
+
+
+
+
+
 
 end
 
