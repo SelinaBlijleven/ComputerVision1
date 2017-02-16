@@ -13,28 +13,23 @@ end
 k = 1;
 V = zeros(5,3);
 % The five image directions.
-S = [0,0,-1;
+S = [256,256,-1;
+    1,512,-1;
+    512,1,-1;
     1,1,-1;
-    1,-1,-1;
-    -1,-1,-1;
-    -1,1,-1];
+    1,512,-1];
 for i=1:5
     V(i,:) = k*S(i,:);
 end
 
 % TODO: normalize V into scriptV
-scriptV = zeros(5,2);
-d = 1;
+scriptV = zeros(5,3);
 
-Normalization_standard = [1,0,0;
-                          0,1,0;
-                          0,0,-1/d];
-
-for i=1:5
-    normal_vec = Normalization_standard*V(i,:).';
-    scriptV(i,:) = normal_vec([1,2])*normal_vec(3);
-end
-
+% for i=1:5
+%     normal_vec = Normalization_standard*V(i,:).';
+%     scriptV(i,:) = normal_vec([1,2])*normal_vec(3);
+% end
+scriptV = V;
 
 % scale up to scale factor before return
 scriptV = scale_factor * scriptV;
