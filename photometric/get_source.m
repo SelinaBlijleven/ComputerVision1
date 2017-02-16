@@ -5,7 +5,7 @@ function [ scriptV ] = get_source(scale_factor)
 if nargin == 0
     scale_factor = 1;
 end
-scriptV = 0;
+
 
 % TODO: define arbitrary direction to V
 % k is the constant connecting the camera response to the input randiance.
@@ -22,9 +22,18 @@ for i=1:5
     V(i,:) = k*S(i,:);
 end
 
-disp(V)
 % TODO: normalize V into scriptV
+scriptV = zeros(5,2);
+d = 1;
 
+Normalization_standard = [1,0,0;
+                          0,1,0;
+                          0,0,-1/d];
+
+for i=1:5
+    normal_vec = Normalization_standard*V(i,:).';
+    scriptV(i,:) = normal_vec([1,2])*normal_vec(3);
+end
 
 
 % scale up to scale factor before return

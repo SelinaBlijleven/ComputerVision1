@@ -4,7 +4,7 @@ function [ image_stack, W, H ] = load_image( image_dir, image_ext )
 %   image_ext : image extension with wildcard character, default '*.png'
 
 if nargin == 0
-    image_dir = 'C:/Users/Acer/Documents/Universiteit/Computer Vision/photometric/Sphere';
+    image_dir = 'Sphere';
     image_ext = '*.png';
 end
 
