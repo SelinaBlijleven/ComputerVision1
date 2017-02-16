@@ -36,21 +36,18 @@ for idx = 1:W
         end        
 
         %   solve scriptI * scriptV * g = scriptI * i to obtain g for this point
-        g = linsolve(scriptI * scriptV, scriptI * i);
+        [g, R] = linsolve(scriptI * scriptV, scriptI * i);
         
         %   albedo at this point is |g|
         %   (same everywhere because we take the norm, not RGB)
         albedo(idx, idy) =  norm(g);
-        
-        %   TODO: Get normal 3-dimensional
+
         %   normal at this point is g / |g|
         normal(idx, idy, :) = g / norm(g);
         
-        %   TODO: Check if computed with normals
         %   p at this point is N1 / N3
         p(idx, idy) = normal(idx, idy, 1) / normal(idx, idy, 3);
         
-        %   TODO: Check if computed with normals
         %   q at this point is N2 / N3
         q(idx, idy) = normal(idx, idy, 2) / normal(idx, idy, 3);
     end

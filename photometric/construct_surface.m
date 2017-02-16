@@ -14,8 +14,8 @@ height_map = zeros(W, H);
 prev_height_val = height_map(1, 1);
 
 for idy = 2:H
-   height_map(1, idx) = prev_height_val + q(1, idx);
-   prev_height_val = height_map(1, idx)
+   height_map(1, idy) = prev_height_val + q(1, idy);
+   prev_height_val = height_map(1, idy);
 end
 
 % For every point not in the left column:
