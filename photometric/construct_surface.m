@@ -13,15 +13,15 @@ height_map = zeros(W, H);
 % height_value = previous_height_value + corresponding_q_value
 prev_height_val = height_map(1, 1);
 
-for idy = 2:numel(H)
+for idy = 2:H
    height_map(1, idx) = prev_height_val + q(1, idx);
    prev_height_val = height_map(1, idx)
 end
 
 % For every point not in the left column:
 % height_value = previous_height_value + corresponding_p_value
-for idy = 1:numel(H)
-    for idx = 2:numel(W)
+for idy = 1:H
+    for idx = 2:W
         height_map(idx, idy) = prev_height_val + p(idx, idy);
     end
 end

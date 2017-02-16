@@ -22,8 +22,8 @@ p = zeros(W, H);
 q = zeros(W, H);
 
 % for each point in the image array
-for idx = 1:numel(W)
-    for idy = 1:numel(H)
+for idx = 1:W
+    for idy = 1:H
         
         %   stack image values into a vector of length N (for N images)
         %   construct the diagonal matrix scriptI
@@ -34,9 +34,9 @@ for idx = 1:numel(W)
             i(idn) = stack_images(W, H, N);
             scriptI(idn, idn) = i(idn);
         end        
-        
+
         %   solve scriptI * scriptV * g = scriptI * i to obtain g for this point
-        g = inv(scriptI * scriptV) * (scriptI * i);
+        g = linsolve(scriptI * scriptV, scriptI * i);
         
         %   albedo at this point is |g|
         %   (same everywhere because we take the norm, not RGB)
@@ -44,7 +44,7 @@ for idx = 1:numel(W)
         
         %   TODO: Get normal 3-dimensional
         %   normal at this point is g / |g|
-        %normal(idx, idy) = g / norm(g);
+        normal(idx, idy, :) = g / norm(g);
         
         %   TODO: Check if computed with normals
         %   p at this point is N1 / N3
