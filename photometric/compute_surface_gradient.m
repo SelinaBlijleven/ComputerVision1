@@ -26,7 +26,7 @@ for idx = 1:W
     for idy = 1:H
         
         %   stack image values into a vector of length N (for N images)
-        %   construct the diagonal matrix scriptI
+        %   and add to scriptI diagonal.
         i = zeros(N, 1);
         scriptI = zeros(N, N);
         

@@ -23,5 +23,6 @@ end
 for idy = 1:H
     for idx = 2:W
         height_map(idx, idy) = prev_height_val + p(idx, idy);
+        prev_height_val = height_map(idx, idy);
     end
 end
