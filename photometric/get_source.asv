@@ -13,17 +13,24 @@ scriptV = 0;
 k = 1;
 V = zeros(5,3);
 % The five image directions.
+S_1 = [0,0,-1];
+S_2 = [1,1,0];
+S_3 = [1,-1,0];
+S_4 = [-1,-1,0];
+S_5 = [-1,1,0];
 S = [0,0,-1;
-    1,1,-1;
-    1,-1,-1;
-    -1,-1,-1;
-    -1,1,-1];
-for i=1:5
-    V(i,:) = k*S(i,:);
-end
+    1,1,0;
+    1,-1,0;
+    -1,-1,0;
+    -1,1,0;
+    S_2,S_3,S_4,S_5]
+for image = 
+    V(i,:) = k*image;
 
-disp(V)
+
 % TODO: normalize V into scriptV
+
+
 
 
 
