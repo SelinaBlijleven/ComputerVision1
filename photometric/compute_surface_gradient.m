@@ -31,7 +31,7 @@ for idx = 1:W
         scriptI = zeros(N, N);
         
         for idn = 1:N
-            i(idn) = stack_images(W, H, N);
+            i(idn) = stack_images(idx, idy, idn);
             scriptI(idn, idn) = i(idn);
         end        
 
