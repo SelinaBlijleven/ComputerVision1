@@ -40,6 +40,8 @@ for idx = 1:W
         
         %   albedo at this point is |g|
         %   (same everywhere because we take the norm, not RGB)
+        disp(norm(g))
+        disp(g)
         albedo(idx, idy) =  norm(g);
 
         %   normal at this point is g / |g|
