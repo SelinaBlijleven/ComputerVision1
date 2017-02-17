@@ -7,29 +7,25 @@ if nargin == 0
 end
 
 
-% TODO: define arbitrary direction to V
-% k is the constant connecting the camera response to the input randiance.
+% define arbitrary direction to V
+% k is the constant connecting the camera response to the input radiance.
 % So here the value is 1.
 k = 1;
-V = zeros(5,3);
-% The five image directions.
-S = [256,256,-1;
-    1,512,-1;
-    512,1,-1;
-    1,1,-1;
-    1,512,-1];
-for i=1:5
-    V(i,:) = k*S(i,:);
-end
-
-% TODO: normalize V into scriptV
 scriptV = zeros(5,3);
+% The five image directions.
+% These are hardcoded as that was the easiest way to implement the
+% directions without using the images that were available calculating the
+% directions.
+S = [0,0,-1;
+    1,1,-1;
+    1,-1,-1;
+    -1,1,-1;
+    -1,-1,-1];
 
-% for i=1:5
-%     normal_vec = Normalization_standard*V(i,:).';
-%     scriptV(i,:) = normal_vec([1,2])*normal_vec(3);
-% end
-scriptV = V;
+% normalize V into scriptV
+for i=1:5
+    scriptV(i,:) = k*(S(i,:)/norm(S(i,:)));
+end
 
 % scale up to scale factor before return
 scriptV = scale_factor * scriptV;
