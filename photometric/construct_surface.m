@@ -18,9 +18,11 @@ for idy = 2:H
    prev_height_val = height_map(1, idy);
 end
 
+
 % For every point not in the left column:
 % height_value = previous_height_value + corresponding_p_value
 for idy = 1:H
+    prev_height_val = height_map(1, idy);
     for idx = 2:W
         height_map(idx, idy) = prev_height_val + p(idx, idy);
         prev_height_val = height_map(idx, idy);

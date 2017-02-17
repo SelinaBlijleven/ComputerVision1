@@ -22,6 +22,7 @@ subplot(2, 2, 1);
 sqdiff = (dpdy - dqdx).^2;
 surf(X, Y, sqdiff, gradient(sqdiff));
 title('Integrability check: (dp / dy - dq / dx) ^2 ');
+axis([0,512,0,512,0, 1000]);
 
 subplot(2, 2, 2);
 imshow(albedo);
@@ -32,10 +33,12 @@ subplot(2, 2, 3);
 surf(X_sub, Y_sub, height_map(1:32:end, 1:32:end));
 xlabel('x'),ylabel('y'),zlabel('z');
 title('Surface Mesh');
+axis([0,512,0,512,0, 400]);
 
 [U, V, W] = surfnorm(X_sub, Y_sub, height_map(1:32:end, 1:32:end));
 subplot(2, 2, 4), 
 quiver3(X_sub, Y_sub, height_map(1:32:end, 1:32:end), U, V, W, 0.5);
 xlabel('x'),ylabel('y'),zlabel('z');
 title('Surface normals');
+axis([0,512,0,512,0, 400]);
     

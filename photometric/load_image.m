@@ -4,13 +4,13 @@ function [ image_stack, W, H ] = load_image( image_dir, image_ext )
 %   image_ext : image extension with wildcard character, default '*.png'
 
 if nargin == 0
-    image_dir = 'Sphere/'; % C:/Users/Acer/Documents/Universiteit/Computer Vision/photometric/
+    image_dir = 'C:/Users/Lord Thomas/Documents/GitHub/ComputerVision1/photometric/Sphere'; % C:/Users/Acer/Documents/Universiteit/Computer Vision/photometric/
     image_ext = '*.png';
 end
+disp('DO NOT FORGET TO CHANGE THE LOCATION')
 
 files = dir(fullfile(image_dir, image_ext));
 nfiles = length(files);
-
 im = imread(fullfile(image_dir, files(1).name));
 [w, h] = size(im);
 image_stack = zeros(w, h, nfiles, 'uint8');
