@@ -16,7 +16,7 @@ N = size(stack_images, 3);
 %   albedo, normal (3 components)
 %   p measured value of df/dx, and
 %   q measured value of df/dy
-albedo = zeros(W, H, 3);
+albedo = zeros(W, H, 1);
 normal = zeros(W, H, 3);
 p = zeros(W, H);
 q = zeros(W, H);
