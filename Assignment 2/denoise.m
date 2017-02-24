@@ -11,9 +11,23 @@ B = any(B(:) == kernel_size);
 
 % box filtering
 if strcmp(kernel_type,'Box')  && A
-    filter = ones(kernel_size,kernel_size);
-    filter = filter*(1/(kernel_size^2));
-    imOut = conv2(image,filter);
+    filter = ones(kernel_size,kernel_size)*(1/(kernel_size^2));
+    [xdim, ydim] = size(image);
+    imOut = zeros(xdim, ydim);
+    image = padarray(image,floor(kernel_size/2));
+    
+    for x=floor(kernel_size/2)+1:xdim-floor(kernel_size/2) %loop in x-dimension
+        for y=floor(kernel_size/2)+1:ydim-floor(kernel_size/2) % loop in y-dimension
+            neighbors = image(x-floor(kernel_size/2):x+floor(kernel_size/2),y-floor(kernel_size/2):y+floor(kernel_size/2));
+            value_summed = 0;
+            for elem_x=1:kernel_size
+               for elem_y=1:kernel_size
+                   value_summed = value_summed + neighbors(elem_x, elem_y)*filter(elem_x, elem_y);
+               end
+            end
+            imOut(x,y) = round(value_summed);
+        end
+    end
 
 % Median filtering
 elseif strcmp(kernel_type,'Median') && B
