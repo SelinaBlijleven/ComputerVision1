@@ -53,32 +53,13 @@ end
 figure;
 imshow(imOut_Y, [min(min(imOut_Y)),max(max(imOut_Y))]);
 
-im_magnitude = zeros(xdim,ydim);
+for x=floor(kernel_size/2)+1:xdim-floor(kernel_size/2) %loop in x-dimension
+    for y=floor(kernel_size/2)+1:ydim-floor(kernel_size/2) % loop in y-dimension
+        neighbors = tan(imOut_X(x,y)./ imOut_Y(x,y)
 
-for x=1:xdim %loop in x-dimension
-    for y=1:ydim % loop in y-dimension
-        magnitude = sqrt(imOut_X(x,y).^2+ imOut_Y(x,y).^2);
-        im_magnitude(x,y) = magnitude;
+        imOut_Y(x,y) = value_summed;
     end
 end
-
-figure;
-imshow(im_magnitude, [min(min(im_magnitude)),max(max(im_magnitude))]);
-
-
-
-% Direction does not work correctly.
-im_direction = zeros(xdim,ydim);
-
-for x=1:xdim %loop in x-dimension
-    for y=1:ydim % loop in y-dimension
-        direction = atan(imOut_X(x,y)./ imOut_Y(x,y));
-        im_direction(x,y) = direction;
-    end
-end
-
-figure;
-imshow(im_direction, [min(min(im_direction)),max(max(im_direction))]);
 
 % Image Gradient direction
 

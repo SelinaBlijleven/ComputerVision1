@@ -17,7 +17,7 @@ for x=floor(kernel_size/2)+1:xdim-floor(kernel_size/2) %loop in x-dimension
         value_summed = 0;
         for elem_x=1:kernel_size
            for elem_y=1:kernel_size
-               value_summed = value_summed + neighbors(elem_x, elem_y)*Filter(elem_x, elem_y);
+               value_summed = value_summed + double(neighbors(elem_x, elem_y))*Filter(elem_x, elem_y);
            end
         end
         imOut(x,y) = round(value_summed);
