@@ -10,7 +10,9 @@ function imOut = unsharp (image , sigma , kernel_size , k)
 % sharpness.
 
 % creation of the kernel, with the help of our own gaussian kernel.
-imSmooth = gaussConv(image, sigma, sigma, kernel_size);
+image = im2double(image);
+filter_1 = fspecial('gaussian', kernel_size, sigma);
+imSmooth = imfilter(image,filter_1);
 
 % Calculation of the Highpassed image.
 HighPassed = double(image) - imSmooth;

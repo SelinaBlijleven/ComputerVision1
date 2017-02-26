@@ -14,6 +14,7 @@ B = any(B(:) == kernel_size);
 
 % The preprocessing of the image so that the size is known and the image is
 % padded with zeroes.
+image = im2double(image);
 [xdim, ydim] = size(image);
 image = padarray(image,floor(kernel_size/2));
 %Preallocation of the imOut.

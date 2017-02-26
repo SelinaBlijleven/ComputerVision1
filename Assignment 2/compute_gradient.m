@@ -21,6 +21,7 @@ y_conv = x_conv';
 % The preprocessing of the image so that the size is known and the image is
 % padded with zeroes.
 [xdim, ydim] = size(image);
+image = im2double(image);
 image = padarray(image,floor(kernel_size/2));
 
 %Preallocation of the imOut_X.
