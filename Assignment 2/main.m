@@ -24,7 +24,6 @@ imshow(imOut_2_1, [min(min(imOut_2_1)),max(max(imOut_2_1))]);
 imOut_2_2 = myHistMatching(input_im, reference_im);
 
 % Assignment 2.3 Computation of the Gradient
-
 % PROBLEM: PLOT of the im_direction does not work correctly.
 [im_magnitude_2_3 , im_direction_2_3] = compute_gradient(image_3);
 
@@ -35,5 +34,8 @@ imshow(imOut_2_4, [min(min(imOut_2_4)),max(max(imOut_2_4))]);
 
 % Assignment 2.5 Computation of the Laplacian of Gaussian.
 imOut_2_5 = compute_LoG(image_1 , LOG_type);
+
+
+
 
 end
