@@ -51,11 +51,6 @@ end
 figure;
 imshow(imOut_X, [min(min(imOut_X)),max(max(imOut_X))]);
 
-% The preprocessing of the image so that the size is known and the image is
-% padded with zeroes.
-[xdim, ydim] = size(image);
-image = padarray(image,floor(kernel_size/2));
-
 %Preallocation of the imOut_Y.
 imOut_Y = zeros(xdim, ydim);
 
@@ -89,6 +84,7 @@ im_magnitude = zeros(xdim,ydim);
 % This loop moves over the image gradient in x-direction over the image
 % gradient in y-direction and calculates the magnitude of the image, by
 % calculating the total euclidian distance of the vector.
+
 for x=1:xdim %loop in x-dimension
     for y=1:ydim % loop in y-dimension
         magnitude = sqrt(imOut_X(x,y).^2+ imOut_Y(x,y).^2);
@@ -99,16 +95,14 @@ end
 figure;
 imshow(im_magnitude, [min(min(im_magnitude)),max(max(im_magnitude))]);
 
-
-
 % Direction does not work correctly.
 im_direction = zeros(xdim,ydim);
 
 % This loop moves over the image gradient in x-direction over the image
 % gradient in y-direction and calculates the direction of gradient of the
 % image. by using the inverse tangent to calculate the angle.
-for x=1:xdim %loop in x-dimension
-    for y=1:ydim % loop in y-dimension
+for x=2:xdim %loop in x-dimension
+    for y=2:ydim % loop in y-dimension
         direction = atan(imOut_X(x,y)./ imOut_Y(x,y));
         im_direction(x,y) = direction;
     end

@@ -12,17 +12,18 @@ A = any(A(:) == kernel_size);
 B = [3 5 7];
 B = any(B(:) == kernel_size);
 
+% The preprocessing of the image so that the size is known and the image is
+% padded with zeroes.
+[xdim, ydim] = size(image);
+image = padarray(image,floor(kernel_size/2));
+%Preallocation of the imOut.
+imOut = zeros(xdim, ydim);
+
 % box filtering
 if strcmp(kernel_type,'Box')  && A
     % The build of the Box filter.
     filter = ones(kernel_size,kernel_size)*(1/(kernel_size^2));
-    % The preprocessing of the image so that the size is known and the image is
-    % padded with zeroes.
-    [xdim, ydim] = size(image);
-    image = padarray(image,floor(kernel_size/2));
 
-    %Preallocation of the imOut.
-    imOut = zeros(xdim, ydim);
 
     % Actual looping over the image, starting with the first kernel_size pixels
     % of the image.
@@ -34,6 +35,7 @@ if strcmp(kernel_type,'Box')  && A
             % Looping over the convolution. where the each pixel is multiplied
             % by the corresponding kernelvalue and than summed up. and assigned
             % to the right location in the new output image, imOut.
+            value_summed = 0;
             for elem_x=1:kernel_size
                for elem_y=1:kernel_size
                    value_summed = value_summed + double(neighbors(elem_x, elem_y))*filter(elem_x, elem_y);
@@ -49,9 +51,6 @@ elseif strcmp(kernel_type,'Median') && B
     % padded with zeroes.
     [xdim, ydim] = size(image);
     image = padarray(image,floor(kernel_size/2));
-
-    %Preallocation of the imOut.
-    imOut = zeros(xdim, ydim);
     
 % Actual looping over the image, starting with the first kernel_size pixels
 % of the image.
@@ -72,4 +71,5 @@ else
     print('wrong kernel or kernel size');
     return
 end
+
 end
