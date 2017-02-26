@@ -103,7 +103,7 @@ im_direction = zeros(xdim,ydim);
 % image. by using the inverse tangent to calculate the angle.
 for x=2:xdim %loop in x-dimension
     for y=2:ydim % loop in y-dimension
-        direction = atan(imOut_X(x,y)./ imOut_Y(x,y));
+        direction = atand(imOut_Y(x,y)./ imOut_X(x,y));
         im_direction(x,y) = direction;
     end
 end
