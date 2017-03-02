@@ -1,6 +1,16 @@
-% Check for each point in H if bigger than neighbours in nxn
-% neighbourhood, add points to r (row array) and c (column array).
 function [r, c] = detect_corners(H, n)
+    % Help function of harris_corner_detection.m
+    % Checks for each point in H if bigger than neighbours in nxn
+    % neighbourhood, add points to r (row array) and c (column array).
+    
+    % Input:
+    % H: Cornerness matrix
+    % n: Size of neighbourhood to compare cornerness with.
+    
+    % Output:
+    % r: Row coordinates of detected corners
+    % c: Column coordinates of detected corners
+
     % H size
     [h, w] = size(H);
 

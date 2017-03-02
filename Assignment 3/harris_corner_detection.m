@@ -1,4 +1,15 @@
-function [H, r, c, x] = harris_corner_detection(image)
+function [H, r, c] = harris_corner_detection(image)
+    % Uses Harris method for corner detection. A help function for this
+    % algorithm is defined in detect_corners.m.
+    
+    % Input:
+    % image: Initial image for corner detection
+    
+    % Output:
+    % H: Cornerness matrix
+    % r: Row coordinates of detected corners
+    % c: Column coordinates of detected corners
+
     % Get image size
     [h, w] = size(image);
 
@@ -24,6 +35,7 @@ function [H, r, c, x] = harris_corner_detection(image)
     % Use A, B and C to calculate H matrix.
     H = (A * C - power(B, 2)) - 0.04 * power((A + C), 2);
     
+    % Get rows and columns of detected corners.
     [r, c] = detect_corners(H, n);
     
     % Show image derivatives
