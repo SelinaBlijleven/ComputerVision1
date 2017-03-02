@@ -1,0 +1,35 @@
+% Check for each point in H if bigger than neighbours in nxn
+% neighbourhood, add points to r (row array) and c (column array).
+function [r, c] = detect_corners(H, n)
+    % H size
+    [h, w] = size(H)
+
+    % Initialize empty arrays
+    r = [];
+    c = [];
+    
+    % Normalize and pad H with zeros. By only looping through the actual
+    % values later we eliminate the problem of boundary checking.
+    normH = H - min(H(:));
+    normH = normH ./ max(normH(:));
+    paddedH = padarray(normH, [n n])
+    
+    % Search corners
+    for x = 1+n:w    % column     
+        for y = 1+n:h    % row
+            biggest = true
+            for nbx = x - n:x + n    % neighbourhood column
+                for nby = y - n:y + n    % neighbourhood row
+                    if H(nbx, nby) > H(x, y)
+                        biggest = false
+                    end
+                end
+            end
+            if biggest == true
+                append(r)
+        end
+    end
+            
+            
+            
+end
