@@ -23,16 +23,15 @@ function main()
     
     % Produces the images for person toy/00000001.jpg and 
     % pingpong/0000.jpeg that were required for the report.
-    size(toy_image)
-    [H, r, c] = harris_corner_detection(toy_image);
-    [H, r, c] = harris_corner_detection(pingpong_image);
+    %[H, r, c] = harris_corner_detection(toy_image);
+    %[H, r, c] = harris_corner_detection(pingpong_image);
     
     %%%%%%%%%%%%%
     % Section 2 %
     %%%%%%%%%%%%%
     
-    A, b = lucas_kanade_algorithm(sphere1, sphere2);
-    A, b = lucas_kanade_algorithm(synth1, synth2);
+    lucas_kanade_algorithm(sphere1, sphere2);
+    lucas_kanade_algorithm(synth1, synth2);
     
     %%%%%%%%%%%%%
     % Section 3 %
@@ -54,7 +53,4 @@ function main()
     
     % Visualization videos of two implemented trackers for pingpong and 
     % person toy should be submitted.
-
-    
-    
 end
