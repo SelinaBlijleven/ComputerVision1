@@ -19,10 +19,10 @@ function [H, r, c] = harris_corner_detection(image)
     
     % Set neighbour threshold for corner point detection.
     n = 2;
-    
-    % Get smoothed derivative of the image in x and y directions.
-    [Ix, Iy] = gradient(double(image));           % first order partials
 
+    % Get smoothed derivative of the image in x and y directions.
+    [Ix, Iy] = gradient(double(image));
+    
     % Get A by squaring Ix and convolving with Gaussian G.
     filter = fspecial('gaussian', k, sigma);
     A = imfilter(Ix.^2, filter);
@@ -32,24 +32,19 @@ function [H, r, c] = harris_corner_detection(image)
     
     % Get C by squaring Iy and convolving with gaussian G.
     C = imfilter(Iy.^2, filter);
-    H = zeros(h,w);
     
     % Use A, B and C to calculate H matrix.
-    for y = 1:w  % column
-        for x = 1:h    % row
-            H(x,y) = (A(x,y) * C(x,y) - power(B(x,y), 2)) - 0.04 * power((A(x,y) + C(x,y)), 2);
-        end
-    end
+    H = (A .* C - power(B, 2)) - 0.04 .* power((A + C), 2);
     % Get rows and columns of detected corners.
     [r, c] = detect_corners(H, n);
     
     % Show image derivatives
+
     figure;
     imshow(Ix);
     
     figure;
     imshow(Iy);
-    
     % Show original image
     figure;
     imshow(image)
