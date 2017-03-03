@@ -21,20 +21,25 @@ function [H, r, c] = harris_corner_detection(image)
     n = 2;
     
     % Get smoothed derivative of the image in x and y directions.
-    [Ix, Iy] = gradient(double(image));
-    
+    [Ix, Iy] = gradient(double(image));           % first order partials
+
     % Get A by squaring Ix and convolving with Gaussian G.
-    A = imgaussfilt(Ix^2, sigma);
+    filter = fspecial('gaussian', k, sigma);
+    A = imfilter(Ix.^2, filter);
     
     % Get B somehow magically but for now it's just A
-    B = A;
+    B = imfilter(Ix.*Iy, filter);
     
     % Get C by squaring Iy and convolving with gaussian G.
-    C = imgaussfilt(Iy^2, sigma);
+    C = imfilter(Iy.^2, filter);
+    H = zeros(h,w);
     
     % Use A, B and C to calculate H matrix.
-    H = (A * C - power(B, 2)) - 0.04 * power((A + C), 2);
-    
+    for y = 1:w  % column
+        for x = 1:h    % row
+            H(x,y) = (A(x,y) * C(x,y) - power(B(x,y), 2)) - 0.04 * power((A(x,y) + C(x,y)), 2);
+        end
+    end
     % Get rows and columns of detected corners.
     [r, c] = detect_corners(H, n);
     

@@ -23,8 +23,8 @@ function main()
     
     % Produces the images for person toy/00000001.jpg and 
     % pingpong/0000.jpeg that were required for the report.
-    %[H, r, c] = harris_corner_detection(toy_image);
-    %[H, r, c] = harris_corner_detection(pingpong_image);
+    [H, r, c] = harris_corner_detection(toy_image);
+    [H, r, c] = harris_corner_detection(pingpong_image);
     
     %%%%%%%%%%%%%
     % Section 2 %
