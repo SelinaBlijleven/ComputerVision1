@@ -23,8 +23,8 @@ function main()
     
     % Produces the images for person toy/00000001.jpg and 
     % pingpong/0000.jpeg that were required for the report.
-     [H, r, c] = harris_corner_detection(toy_image);
-    % [H, r, c] = harris_corner_detection(pingpong_image);
+%     [H, r, c] = harris_corner_detection(toy_image);
+%     [H, r, c] = harris_corner_detection(pingpong_image);
     
     %%%%%%%%%%%%%
     % Section 2 %
@@ -32,12 +32,13 @@ function main()
     
 %     lucas_kanade_algorithm(sphere1, sphere2);
 %     lucas_kanade_algorithm(synth1, synth2);
-    
+%     
     %%%%%%%%%%%%%
     % Section 3 %
     %%%%%%%%%%%%%
-    
-    track_corners('/person_toy/');
+
+    % track_corners('person_toy/');
+    track_corners('pingpong/');
     
     % A demo function which runs the whole routine with all other 
     % functions you have implemented. 

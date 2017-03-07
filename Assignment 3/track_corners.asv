@@ -1,0 +1,16 @@
+function track_corners(map)
+if map 'person_toy'
+    files = dir(strcat(map,'*.jpg'));
+    files = files(2:end);
+    image_1 = rgb2gray(imread('person_toy/00000001.jpg'));
+elseif map 'pingpong'
+    
+else
+   'Not the correct file m' 
+end
+[H, r, c] = harris_corner_detection(image_1);
+for file = files'
+    image_2 = rgb2gray(imread(strcat(map,file.name)));
+    [r, c] = lucas_kanade_algorithm(image_1, image_2, r, c);
+    image_1 = image_2;
+end

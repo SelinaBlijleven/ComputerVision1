@@ -48,16 +48,16 @@ function [H, r, c] = harris_corner_detection(image)
     
     % Show image derivatives
 
-    figure;
-    imshow(Ix);
-    
-    figure;
-    imshow(Iy);
-    % Show original image
-    figure;
-    imshow(image)
-    hold on;
-    
-    % Plot corner points.
-    plot(c, r, 'r.')
+%     figure;
+%     imshow(Ix);
+%     
+%     figure;
+%     imshow(Iy);
+%     % Show original image
+%     figure;
+%     imshow(image)
+%     hold on;
+%     
+%     % Plot corner points.
+%     plot(c, r, 'r.')
 end
