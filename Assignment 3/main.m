@@ -1,10 +1,11 @@
 function main()
+    %% Main function to run all the subfunction that are used in assignment 3
+
     %%%%%%%%%%%%%%%%%%
     % Initialization %
     %%%%%%%%%%%%%%%%%%
     
-    % Make plots not visible
-    set(0,'DefaultFigureVisible', 'off');
+    set(0,'DefaultFigureVisible', 'on');
     
     toy_image = rgb2gray(imread('person_toy/00000001.jpg'));
     pingpong_image = rgb2gray(imread('pingpong/0000.jpeg'));
@@ -26,8 +27,8 @@ function main()
     % Produces the images for person toy/00000001.jpg and 
     % pingpong/0000.jpeg that were required for the report.
     
-%     [H, r, c] = harris_corner_detection(toy_image);
-%     [H, r, c] = harris_corner_detection(pingpong_image);
+    [H, r, c] = harris_corner_detection(toy_image);
+    [H, r, c] = harris_corner_detection(pingpong_image);
     
     %%%%%%%%%%%%%
     % Section 2 %
@@ -43,8 +44,9 @@ function main()
     % Visualizations of two optical flows for sphere and synth images 
     % should be submitted.
         
-%     lucas_kanade_algorithm(sphere1, sphere2);
-%     lucas_kanade_algorithm(synth1, synth2);
+    lucas_kanade_algorithm(sphere1, sphere2);
+    lucas_kanade_algorithm(synth1, synth2);
+    pause(20);
     
     %%%%%%%%%%%%%
     % Section 4 %
@@ -57,7 +59,17 @@ function main()
     % Visualization videos of two implemented trackers for pingpong and 
     % person toy should be submitted.
     
+    % Make plots not visible
+    clear all;
+    close all; 
+    clc;
+    set(0,'DefaultFigureVisible', 'off');
+    
     track_corners('person_toy/');
     track_corners('pingpong/');
+    
+    set(0,'DefaultFigureVisible', 'on');
+    implay('out_person_toy/out_person_toy.avi')
+    implay('out_pingpong/out_pingpong.avi')
 
 end

@@ -1,5 +1,5 @@
 function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_name)
-    % Lucas-Kanade Algorithm for estimating optical flow.
+    %% Lucas-Kanade Algorithm for estimating optical flow.
     % Estimated as v = (A^T A)^-1 A^Tb. 
 
     % Input:
@@ -33,17 +33,17 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
 
             % For each region compute A, AT and b; then estimate optical flow as given 
             % in equation (20).
-            Ix1 = conv2(double(region1),[-1 1; -1 1], 'valid'); % partial on x
-            Iy1 = conv2(double(region1), [-1 -1; 1 1], 'valid'); % partial on y
+            % Ix1 = conv2(double(region1),[-1 1; -1 1], 'same'); % partial on x
+            % Iy1 = conv2(double(region1), [-1 -1; 1 1], 'same'); % partial on y
 
-            % [Ix2, Iy2] = gradient(double(region2));
+            [Ix1, Iy1] = gradient(double(region1));
 
             Ix1 = Ix1(:);
             Iy1 = Iy1(:);
             % Ix2 = Ix2(:);
             % Iy2 = Iy2(:);      
 
-            It1_2 = conv2(double(region1), ones(2), 'valid') + conv2(double(region2), -ones(2), 'valid'); % partial on t
+            It1_2 = conv2(double(region1), ones(2), 'same') + conv2(double(region2), -ones(2), 'same'); % partial on t
             b = -It1_2(:); % get b here
             A1 = [Ix1,Iy1];
             % A2 = [Ix2,Iy2];
@@ -52,10 +52,10 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
             % AT2 = transpose(A2);
 
             velocity = A1\b; % get velocity here
-            X = [X, x_end-7];
-            Y = [Y, y-7];
-            Vx = [velocity(1), Vx];
-            Vy = [velocity(2), Vy];
+            X = [X, y_end-7];
+            Y = [Y, x_end-7];
+            Vx = [Vx, velocity(1)];
+            Vy = [Vy, velocity(2)];
             % When you have estimation for optical flow (Vx,Vy) of each region, you 
             % should display the results. There is a matlab function quiver which 
             % plots a set of two-dimensional vectors as arrows on the screen. 
@@ -66,7 +66,7 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
         imshow(image2);
         hold on;
         % draw the velocity vectors
-        quiver(X, Y, Vy, Vx, 'y');
+        quiver(X, Y, Vx, Vy, 'y');
     else
         % Get size of images.
         [h, w] = size(image1);
@@ -107,16 +107,36 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
             % Ix1 = conv2(double(region1),filter, 'same'); % partial on x
             % Iy1 = conv2(double(region1), filter', 'same'); % partial on y
 
-            [Ix2, Iy2] = gradient(double(region1));
+%             [Ix2, Iy2] = gradient(double(region1));
+% 
+%             % Ix1 = Ix1(:);
+%             % Iy1 = Iy1(:);
+%             Ix1 = Ix2(:);
+%             Iy1 = Iy2(:);      
+% 
+%             It1_2 = conv2(double(region1), ones(2), 'same') + conv2(double(region2), -ones(2), 'same'); % partial on t
+%             b = -It1_2(:); % get b here
+%  
+%             A1 = [Ix1,Iy1];
+%             % A2 = [Ix2,Iy2];
+% 
+%             % AT1 = transpose(A1);
+%             % AT2 = transpose(A2);
+% 
+%             velocity = A1\b; % get velocity here
+%             X = [X, y];
+%             Y = [Y, x];
+%             Vx = [Vx, velocity(2)];
+%             Vy = [Vy, velocity(1)];
+            [Ix1, Iy1] = gradient(double(region1));
 
-            % Ix1 = Ix1(:);
-            % Iy1 = Iy1(:);
-            Ix1 = Ix2(:);
-            Iy1 = Iy2(:);      
+            Ix1 = Ix1(:);
+            Iy1 = Iy1(:);
+            % Ix2 = Ix2(:);
+            % Iy2 = Iy2(:);      
 
             It1_2 = conv2(double(region1), ones(2), 'same') + conv2(double(region2), -ones(2), 'same'); % partial on t
             b = -It1_2(:); % get b here
- 
             A1 = [Ix1,Iy1];
             % A2 = [Ix2,Iy2];
 
@@ -124,12 +144,12 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
             % AT2 = transpose(A2);
 
             velocity = A1\b; % get velocity here
-            X = [x, X];
-            Y = [y, Y];
+            X = [X, x];
+            Y = [Y, y];
             Vx = [Vx, velocity(1)];
             Vy = [Vy, velocity(2)];
-            r_new = [r_new; r(corner)+velocity(1)];
-            c_new = [c_new; c(corner)+velocity(2)];
+            r_new = [r_new; r(corner)+ velocity(2)];
+            c_new = [c_new; c(corner)+ velocity(1)];
             
             % When you have estimation for optical flow (Vx,Vy) of each region, you 
             % should display the results. There is a matlab function quiver which 
@@ -142,7 +162,7 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
         % plot the corners
         plot(c, r, 'r.');
         % draw the velocity vectors
-        quiver(X, Y, Vy, Vx, 'y');
+        quiver(X, Y, Vx, Vy, 'y');
         saveas(gcf, image_name)
     end
     
