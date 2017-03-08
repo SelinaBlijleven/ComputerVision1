@@ -14,7 +14,7 @@ function [H, r, c] = harris_corner_detection(image)
     [h, w] = size(image);
 
     % Set kernel size and sigma for Gaussian first order derivative.
-    k = 5;
+    k = 10;
     sigma = 1;
     constant = 97;
     
