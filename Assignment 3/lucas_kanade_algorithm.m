@@ -1,4 +1,4 @@
-function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c)
+function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_name)
     % Lucas-Kanade Algorithm for estimating optical flow.
     % Estimated as v = (A^T A)^-1 A^Tb. 
 
@@ -19,8 +19,6 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c)
         Vy = [];
         X = [];
         Y = [];
-        r_new = [];
-        c_new = [];
 
 
         for x = 1:floor(h/pixels)
@@ -28,10 +26,10 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c)
             % Divide input images on non-overlapping regions, each region being 15×15 
             % pixels.
             x_end = x * pixels;
-            y = y * pixels;
+            y_end = y * pixels;
 
-            region1 = image1((x_end - pixels+1):x_end, (y - pixels+1):y);
-            region2 = image2((x_end - pixels+1):x_end, (y - pixels+1):y);
+            region1 = image1((x_end - pixels+1):x_end, (y_end - pixels+1):y_end);
+            region2 = image2((x_end - pixels+1):x_end, (y_end - pixels+1):y_end);
 
             % For each region compute A, AT and b; then estimate optical ?ow as given 
             % in equation (20).
@@ -50,10 +48,10 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c)
             A1 = [Ix1,Iy1];
             % A2 = [Ix2,Iy2];
 
-            AT1 = transpose(A1);
+            % AT1 = transpose(A1);
             % AT2 = transpose(A2);
 
-            velocity = inv(AT1*A1)*AT1*b; % get velocity here
+            velocity = A1\b; % get velocity here
             X = [X, x_end-7];
             Y = [Y, y-7];
             Vx = [velocity(1), Vx];
@@ -64,12 +62,11 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c)
             % Try to ?gure out how to use this to plot your optical ?ow results.
             end
         end
-
         figure();
         imshow(image2);
         hold on;
         % draw the velocity vectors
-        quiver(X, Y, Vx, Vy, 'y')
+        quiver(X, Y, Vy, Vx, 'y');
     else
         % Get size of images.
         [h, w] = size(image1);
@@ -131,21 +128,22 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c)
             Y = [y, Y];
             Vx = [Vx, velocity(1)];
             Vy = [Vy, velocity(2)];
-            r_new = [r_new; r(corner)+velocity(2)];
-            c_new = [c_new; c(corner)+velocity(1)];
+            r_new = [r_new; r(corner)+velocity(1)];
+            c_new = [c_new; c(corner)+velocity(2)];
             
             % When you have estimation for optical ?ow (Vx,Vy) of each region, you 
             % should display the results. There is a matlab function quiver which 
             % plots a set of two-dimensional vectors as arrows on the screen. 
             % Try to ?gure out how to use this to plot your optical ?ow results.
         end
-
         figure();
         imshow(image2);
         hold on;
         % plot the corners
-        plot(c, r, 'r.')
+        plot(c, r, 'r.');
         % draw the velocity vectors
-        quiver(X, Y, Vy, Vx, 'y')
+        quiver(X, Y, Vy, Vx, 'y');
+        saveas(gcf, image_name)
     end
+    
 end
