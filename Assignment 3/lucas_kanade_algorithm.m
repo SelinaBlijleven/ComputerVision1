@@ -31,7 +31,7 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
             region1 = image1((x_end - pixels+1):x_end, (y_end - pixels+1):y_end);
             region2 = image2((x_end - pixels+1):x_end, (y_end - pixels+1):y_end);
 
-            % For each region compute A, AT and b; then estimate optical ?ow as given 
+            % For each region compute A, AT and b; then estimate optical flow as given 
             % in equation (20).
             Ix1 = conv2(double(region1),[-1 1; -1 1], 'valid'); % partial on x
             Iy1 = conv2(double(region1), [-1 -1; 1 1], 'valid'); % partial on y
@@ -56,10 +56,10 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
             Y = [Y, y-7];
             Vx = [velocity(1), Vx];
             Vy = [velocity(2), Vy];
-            % When you have estimation for optical ?ow (Vx,Vy) of each region, you 
+            % When you have estimation for optical flow (Vx,Vy) of each region, you 
             % should display the results. There is a matlab function quiver which 
             % plots a set of two-dimensional vectors as arrows on the screen. 
-            % Try to ?gure out how to use this to plot your optical ?ow results.
+            % Try to ?gure out how to use this to plot your optical flow results.
             end
         end
         figure();
@@ -131,10 +131,10 @@ function [r_new, c_new] = lucas_kanade_algorithm(image1, image2, r, c, image_nam
             r_new = [r_new; r(corner)+velocity(1)];
             c_new = [c_new; c(corner)+velocity(2)];
             
-            % When you have estimation for optical ?ow (Vx,Vy) of each region, you 
+            % When you have estimation for optical flow (Vx,Vy) of each region, you 
             % should display the results. There is a matlab function quiver which 
             % plots a set of two-dimensional vectors as arrows on the screen. 
-            % Try to ?gure out how to use this to plot your optical ?ow results.
+            % Try to ?gure out how to use this to plot your optical flow results.
         end
         figure();
         imshow(image2);

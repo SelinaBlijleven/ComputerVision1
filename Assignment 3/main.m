@@ -6,7 +6,6 @@ function main()
     % Make plots not visible
     set(0,'DefaultFigureVisible', 'off');
     
-    
     toy_image = rgb2gray(imread('person_toy/00000001.jpg'));
     pingpong_image = rgb2gray(imread('pingpong/0000.jpeg'));
     
@@ -20,7 +19,7 @@ function main()
     %%%%%%%%%%%%%
     
     % A demo function should return the H matrix, the rows of the detected 
-    % corner points r, and the columns of those points c - so the ?rst 
+    % corner points r, and the columns of those points c - so the first 
     % corner is given by (r(1), c(1)). 
     %[H, r, c] = harris_corner_detection(image);
     
@@ -41,7 +40,7 @@ function main()
     % A demo function which runs the whole routine with all other 
     % functions you have implemented. 
     
-    % Visualizations of two optical ?ows for sphere and synth images 
+    % Visualizations of two optical flows for sphere and synth images 
     % should be submitted.
         
 %     lucas_kanade_algorithm(sphere1, sphere2);
