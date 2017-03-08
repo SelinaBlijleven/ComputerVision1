@@ -44,8 +44,8 @@ function main()
     % Visualizations of two optical ?ows for sphere and synth images 
     % should be submitted.
         
-    lucas_kanade_algorithm(sphere1, sphere2);
-    lucas_kanade_algorithm(synth1, synth2);
+%     lucas_kanade_algorithm(sphere1, sphere2);
+%     lucas_kanade_algorithm(synth1, synth2);
     
     %%%%%%%%%%%%%
     % Section 4 %
