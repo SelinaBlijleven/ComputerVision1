@@ -1,4 +1,5 @@
 function transformation = ransac(N, P, T)
+    %% RANSAC function that calculates the optimal transformation matrix.
     % Input:
     % N: Iterations of ransac
     % P: Amount of samples from T
@@ -46,7 +47,8 @@ function transformation = ransac(N, P, T)
         % of their pair in image2. 
         for j = 1:size(T)
             elem_coor_T = T(j, 1:2);
-            T_A = [elem_coor_T(1) elem_coor_T(2) 0 0 1 0; 0 0 elem_coor_T(1) elem_coor_T(2) 0 1];
+            T_A = [elem_coor_T(1) elem_coor_T(2) 0 0 1 0;
+                   0 0 elem_coor_T(1) elem_coor_T(2) 0 1];
             T_b = T(j, 3:4)';
             estimate_b = T_A * x;
             if abs(T_b - estimate_b)
@@ -68,5 +70,5 @@ function transformation = ransac(N, P, T)
     % in the scene should correspond to its pose in image2. To transform 
     % the image, implement your own function based on nearest-neighbor interpolation. 
     % Then use the built-in MATLAB functions imtransform and maketform and compare your results.
-    transformation = best_x
+    transformation = best_x;
 end

@@ -14,11 +14,7 @@ stitch2 = rgb2gray(imread('right.jpg'));
 % Alignment %
 %%%%%%%%%%%%%
 
-% alignment = Image_alignment(align1, align2);
-% imshow(alignment, [min(min(alignment)),max(max(alignment))]);
-
-% How many iterations in average are needed to ?nd good transformation parameters?
-
+alignment = Image_alignment(align1, align2);
 
 %%%%%%%%%%%%%
 % Stitching %
