@@ -74,7 +74,7 @@ function Aligned = Image_alignment(image_1 , image_2)
     % Plot of the rotated image with the old image.
     figure;
     imshow([image_1,out_image], [min(min(out_image)),max(max(out_image))]);
-
+    
     Aligned = out_image;
 
 end

@@ -14,7 +14,7 @@ stitch2 = rgb2gray(imread('right.jpg'));
 % Alignment %
 %%%%%%%%%%%%%
 
-alignment = Image_alignment(align1, align2);
+alignment, transformation_matrix = Image_alignment(align1, align2);
 
 %%%%%%%%%%%%%
 % Stitching %
