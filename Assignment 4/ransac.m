@@ -13,6 +13,11 @@ function transformation = ransac(N, P, T)
     
     % Size of T
     [tm, tn] = size(T);
+    
+    if P*2 > size(T,1)
+       P = size(T,1)/2;
+        
+    end
     % Repeat N times
     for i = 1:N
         
@@ -33,8 +38,6 @@ function transformation = ransac(N, P, T)
             A = [A;elem_1];
             b = [b;sample(x, 3:4)'];
         end
-        size(A)
-        size(b)
         x = pinv(A) * b;
         
         % Transform all locations of T points
@@ -47,7 +50,7 @@ function transformation = ransac(N, P, T)
             T_b = T(j, 3:4)';
             estimate_b = T_A * x;
             if abs(T_b - estimate_b)
-                sample_inliers = [sample_inliers;T(i, :)];
+                sample_inliers = [sample_inliers;T(j, :)];
             end
         end
         sample_total = size(sample_inliers);

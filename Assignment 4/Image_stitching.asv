@@ -41,7 +41,7 @@ dh2 = max(size(image_1,1)-size(image_2,1),0) ;
 
 figure(1) ; clf ;
 subplot(2,1,1) ;
-imshow([padarray(image_1,dh1,'post') padarray(image_2,dh2,'post')]) ;
+imagesc([padarray(image_1,dh1,'post') padarray(image_2,dh2,'post')]) ;
 o = size(image_1,2) ;
 line([f_1(1,matches(1,:));f_2(1,matches(2,:))+o], ...
      [f_1(2,matches(1,:));f_2(2,matches(2,:))]) ;
@@ -49,7 +49,7 @@ title(sprintf('%d tentative matches', size(matches,2))) ;
 axis image off ;
 
 subplot(2,1,2) ;
-imshow([padarray(image_1,dh1,'post') padarray(image_2,dh2,'post')]) ;
+imagesc([padarray(image_1,dh1,'post') padarray(image_2,dh2,'post')]) ;
 o = size(image_1,2) ;
 line([f_1(1,matches(1,ok));f_2(1,matches(2,ok))+o], ...
      [f_1(2,matches(1,ok));f_2(2,matches(2,ok))]) ;
@@ -68,24 +68,24 @@ box2 = [1  size(image_2,2) size(image_2,2)  1 ;
 box2_ = inv(H) * box2 ;
 box2_(1,:) = box2_(1,:) ./ box2_(3,:) ;
 box2_(2,:) = box2_(2,:) ./ box2_(3,:) ;
-ur = min([1 box2_(1,:)]):max([size(image_1,2) box2_(1,:)]) ;
-vr = min([1 box2_(2,:)]):max([size(image_1,1) box2_(2,:)]) ;
+ur = min([1 box2_(1,:)]):max([size(im1,2) box2_(1,:)]) ;
+vr = min([1 box2_(2,:)]):max([size(im1,1) box2_(2,:)]) ;
 
 [u,v] = meshgrid(ur,vr) ;
-image_1_ = vl_imwbackward(im2double(image_1),u,v) ;
+im1_ = vl_imwbackward(im2double(im1),u,v) ;
 
 z_ = H(3,1) * u + H(3,2) * v + H(3,3) ;
 u_ = (H(1,1) * u + H(1,2) * v + H(1,3)) ./ z_ ;
 v_ = (H(2,1) * u + H(2,2) * v + H(2,3)) ./ z_ ;
-image_2_ = vl_imwbackward(im2double(image_2),u_,v_) ;
+im2_ = vl_imwbackward(im2double(im2),u_,v_) ;
 
-mass = ~isnan(image_1_) + ~isnan(image_2_) ;
-image_1_(isnan(image_1_)) = 0 ;
-image_2_(isnan(image_2_)) = 0 ;
-mosaic = (image_1_ + image_2_) ./ mass ;
+mass = ~isnan(im1_) + ~isnan(im2_) ;
+im1_(isnan(im1_)) = 0 ;
+im2_(isnan(im2_)) = 0 ;
+mosaic = (im1_ + im2_) ./ mass ;
 
 figure(2) ; clf ;
-imshow(mosaic) ; axis image off ;
+imagesc(mosaic) ; axis image off ;
 title('Mosaic') ;
 
 % Match_coor = zeros(50,2);
@@ -110,7 +110,5 @@ title('Mosaic') ;
 %         
 %     end
 % end
-
-stitching = mosaic;
 
 end

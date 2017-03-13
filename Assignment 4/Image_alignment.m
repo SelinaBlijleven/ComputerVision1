@@ -4,26 +4,26 @@ function Aligned = Image_alignment(image_1 , image_2)
 % Two images that can be aligned.
 
 % Iterations of RANSAC
-N = 10;
+N = 100;
 % Amount of matches to sample
-P = 10;
+P = 100;
 
 % Detect interest points in each image
 % Characterize the local appearance of the regions around interest points.
-% [f_1,d_1] = vl_sift(image_1);
-% [f_2,d_2] = vl_sift(image_2);
-% 
-% % Get the set of supposed matches between region descriptors in each image.
-% [matches, scores] = vl_ubcmatch(d_1, d_2);
+[f_1,d_1] = vl_sift(image_1);
+[f_2,d_2] = vl_sift(image_2);
 
-f_1 = randi(679,1000,4)';
-f_2 = randi(679,1000,4)';
-matches = randi(1000,1000,2)';
-scores  = 3.*randn(1000,1)';
+% Get the set of supposed matches between region descriptors in each image.
+[matches, scores] = vl_ubcmatch(d_1, d_2);
+
+% f_1 = randi(679,1000,4)';
+% f_2 = randi(679,1000,4)';
+% matches = randi(1000,1000,2)';
+% scores  = 3.*randn(1000,1)';
 
 perm = randperm(size(f_1,2)) ;
 sel = perm(1:50) ;
-imshow(image_1)
+imshow(image_1, [min(min(image_1)),max(max(image_1))]);
 hold on
 h1 = vl_plotframe(f_1(:,sel)) ;
 h2 = vl_plotframe(f_1(:,sel)) ;
@@ -60,7 +60,7 @@ end
 
 
 figure;
-imshow(out_image, [min(min(out_image)),max(max(out_image))]);
+imshow([image_1,out_image], [min(min(out_image)),max(max(out_image))]);
 
 Aligned = out_image;
 
