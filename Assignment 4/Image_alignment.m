@@ -45,8 +45,9 @@ end
 
 % Perform RANSAC to discover the best transformation between images.
 transformation_matrix = ransac(N, P, Match_coor);
-
 out_image = zeros(size(image_1));
+
+% Transform the second image
 for x=1:size(out_image,1)
     for y=1:size(out_image,2)
         A = [x y 0 0 1 0; 0 0 x y 0 1];
@@ -58,7 +59,7 @@ for x=1:size(out_image,1)
 end
 
 
-
-% imshow(out_image)
+figure;
+imshow(out_image, [min(min(out_image)),max(max(out_image))]);
 
 end
