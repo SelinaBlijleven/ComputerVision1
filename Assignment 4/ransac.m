@@ -25,8 +25,16 @@ function transformation = ransac(N, P, T)
         % Construct a matrix A and vector b using the P pairs of points and 
         % find transformation parameters
         elem_coor = sample(1, 1:2);
-        A = [elem_coor(1) elem_coor(2) 0 0 1 0; 0 0 elem_coor(1) elem_coor(2) 0 1];
         b = sample(1, 3:4)';
+        A = [elem_coor(1) elem_coor(2) 0 0 1 0; 0 0 elem_coor(1) elem_coor(2) 0 1];
+        for x=2:size(sample,1)
+            elem_coor = sample(x, 1:2);
+            elem_1 = [elem_coor(1) elem_coor(2) 0 0 1 0; 0 0 elem_coor(1) elem_coor(2) 0 1];
+            A = [A;elem_1];
+            b = [b;sample(x, 3:4)'];
+        end
+        size(A)
+        size(b)
         x = pinv(A) * b;
         
         % Transform all locations of T points

@@ -62,4 +62,6 @@ end
 figure;
 imshow(out_image, [min(min(out_image)),max(max(out_image))]);
 
+Aligned = out_image;
+
 end
