@@ -1,0 +1,12 @@
+function [f, d] = color_sift(image, colorspace)
+    % This functions performs feature extraction in HSV or RGB color space
+    
+    % Input
+    % Image: The image to use SIFT on
+    % Colorspace: Desired colorspace
+    
+    % Get image size
+    [m, n, d] = size(image)
+    
+    % RGB image is requi
+end
