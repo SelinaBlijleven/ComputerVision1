@@ -6,15 +6,15 @@ function [f, d] = color_SIFT(image, colorspace)
     % Colorspace: Desired colorspace
     
     % Initialize empty features + descriptors
-    f = []
-    d = []
+    f = [];
+    d = [];
     
     % Get image size
-    [m, n, d] = size(image)
+    [m, n, dim] = size(image);
     
     % RGB image is required for colorSIFT, give error if too little dimensions 
     % are found.
-    if d < 3:
+    if dim < 3
         disp('Image not recognized as RGB. Please make sure your image is 3-dimensional.')
         return
     end
@@ -29,7 +29,8 @@ function [f, d] = color_SIFT(image, colorspace)
     
     % Extract descriptors for every dimension and concatenate.
     for i=1:d
-        [dim_f, dim_d] = vl_sift(image[:, :, i]);
-        d = [d; dim_d]
+        [dim_f, dim_d] = vl_sift(single(image(:, :, i)));
+        size(dim_d)
+        d = [d ; dim_d]
     end
 end

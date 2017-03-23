@@ -9,9 +9,9 @@ function image = reduce_dimension(image)
     % Image: Grayscale image
     
     % Image size
-    [m, n, d] = size(image)
+    [m, n, dim] = size(image);
 
-    if d > 1
+    if dim > 1
         image = single(rgb2gray(image));
     end
 end
