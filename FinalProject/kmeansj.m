@@ -44,7 +44,7 @@
 
 function [assign,a, clusters] = kmeansj(a,kmax,maxit,init,fid, doplot)
 
-	prtrace(mfilename);
+	%prtrace(mfilename);
 
 	n_ini = 100;				% Maximum size of subset to use for initialisation.
 
@@ -73,7 +73,7 @@ function [assign,a, clusters] = kmeansj(a,kmax,maxit,init,fid, doplot)
 
 	% Create dataset with all equal labels and no priors.
 	a = dataset(a);
-	islabtype(a,'crisp');
+	% islabtype(a,'crisp');
 	m = size(a,1); 
     a=set(a,'labels',ones(m,1),'lablist',[1:kmax]','prior',[]); % for speed
 	
