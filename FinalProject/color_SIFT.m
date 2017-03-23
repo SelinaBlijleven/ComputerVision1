@@ -20,8 +20,11 @@ function [f, d] = color_SIFT(image, colorspace)
     end
         
     % Convert to HSV space if desired.
-    if colorspace == 'HSV'
+    if strcmp(colorspace, 'HSV')
         image = rgb2hsv(image);
+    
+    elseif strcmp(colorspace, 'opponent')
+        image = rgb2opponent(image);
     end
     
     % Extract keypoints from single channel.
@@ -30,7 +33,6 @@ function [f, d] = color_SIFT(image, colorspace)
     % Extract descriptors for every dimension and concatenate.
     for i=1:d
         [dim_f, dim_d] = vl_sift(single(image(:, :, i)));
-        size(dim_d)
         d = [d ; dim_d]
     end
 end
