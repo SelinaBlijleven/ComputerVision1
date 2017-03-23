@@ -20,8 +20,8 @@ function O = rgb2opponent(image)
     O = zeros(m, n, dim);
     
     % Calculate opponent channels
-    O(:, :, 1) = (R + G - 2 * B)./ sqrt(2);
-    O(:, :, 2) = (R + G - 2 * B)./ sqrt(6);
-    O(:, :, 3) = (R + G + B)./ sqrt(3);
+    O(:, :, 1) = (R - G)./ sqrt(2);             % Red - Green
+    O(:, :, 2) = (R + G - 2 * B)./ sqrt(6);     % Yellow - Blue
+    O(:, :, 3) = (R + G + B)./ sqrt(3);         % Luminance
     
 end
