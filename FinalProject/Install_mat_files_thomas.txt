@@ -1,0 +1,6 @@
+run('D:\Users\Thomas\Documents\MATLAB\Add-Ons\vlfeat-0.9.20\toolbox\vl_setup')
+cd 'D:\Users\Thomas\Documents\MATLAB\Add-Ons\liblinear-2.1\matlab'
+make
+cd 'D:\Users\Thomas\Documents\MATLAB\Add-Ons\matconvnet-1.0-beta23\matlab'
+vl_compilenn('EnableImreadJpeg', true)
+vl_setupnn
