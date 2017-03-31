@@ -1,6 +1,10 @@
 function [air, car, face, bike] = bag_of_words(vocab_size, sift_type)
 %% Main function for first part.
 
+max_h = 0;
+max_w = 0;
+
+
 % Step 0: read in all the images.
 p = mfilename('fullpath');
 p_file = mfilename();
@@ -10,7 +14,6 @@ path_to_loc = strcat(path_to_loc, 'Caltech4\ImageData\');
 
 categories_1 = {'airplanes_train', 'cars_train', 'faces_train', 'motorbikes_train'};
 imd_train = imageDatastore(fullfile(path_to_loc, categories_1), 'LabelSource', 'foldernames');
-
 imd_kmeans_vocab = splitEachLabel(imd_train,50);
 % Step 1: Feature extraction.
 

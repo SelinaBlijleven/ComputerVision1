@@ -73,8 +73,8 @@ net.layers{end+1} = struct('type', 'relu') ;
 %% TODO: Define the structure here, so that the network outputs 4-class rather than 10 (as in the pretrained network)
 % Block 5
 
-% NEW_INPUT_SIZE  = X
-% NEW_OUTPUT_SIZE = Y
+NEW_INPUT_SIZE  = 32;
+NEW_OUTPUT_SIZE = 4;
 
 net.layers{end+1} = struct('type', 'conv', ...
                            'weights', {{0.05*randn(1,1,NEW_INPUT_SIZE,NEW_OUTPUT_SIZE, 'single'), zeros(1,NEW_OUTPUT_SIZE,'single')}}, ...
@@ -89,7 +89,7 @@ net.layers{end+1} = struct('type', 'softmaxloss') ;
 % Fill in default values
 net = vl_simplenn_tidy(net) ;
 
-oldnet = load('./data/pre_trained_model.mat'); oldnet = oldnet.net;
+oldnet = load('data/pre_trained_model.mat'); oldnet = oldnet.net;
 net = update_weights(oldnet, net);
 end
 
