@@ -23,7 +23,7 @@ function [f, d] = feature_extraction(image, method)
     % Dense SIFT with VLFeat
     elseif strcmp(method, 'denseSIFT')
         image = reduce_dimension(image);
-        [f, d] = vl_dsift(image);
+        [f, d] = vl_dsift(image,'Step', 3);
     
     elseif strcmp(method, 'HSVSIFT')
         [f, d] = color_SIFT(image, 'HSV');

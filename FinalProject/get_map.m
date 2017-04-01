@@ -13,16 +13,15 @@ function map = get_map(h, y)
     
     % Initialize sum
     ap = 0;
-    
     % For each example
-    for i=1:n
+    for i=1:x
         % Compare classification
         if h(i) == y(i)
             % Add 1/rank to sum if correct
             ap = ap + 1/i;
         end
     end
-
+    
     % Calculate mean
     map = (1/50) * ap;
     

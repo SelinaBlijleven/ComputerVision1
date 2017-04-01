@@ -31,8 +31,8 @@ function [f, d] = color_SIFT(image, colorspace)
     [f, single_d] = vl_sift(reduce_dimension(image));
     
     % Extract descriptors for every dimension and concatenate.
-    for i=1:d
+    for i=1:dim
         [dim_f, dim_d] = vl_sift(single(image(:, :, i)));
-        d = [d ; dim_d]
+        d = [d , dim_d];
     end
 end

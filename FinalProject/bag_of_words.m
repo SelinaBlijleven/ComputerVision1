@@ -10,19 +10,22 @@ p = mfilename('fullpath');
 p_file = mfilename();
 path_to_loc = p(1:end-length(p_file));
 
-path_to_loc = strcat(path_to_loc, 'Caltech4\ImageData\');
+path_to_loc = strcat(path_to_loc, 'data\Caltech4\ImageData\');
 
 categories_1 = {'airplanes_train', 'cars_train', 'faces_train', 'motorbikes_train'};
 imd_train = imageDatastore(fullfile(path_to_loc, categories_1), 'LabelSource', 'foldernames');
 imd_kmeans_vocab = splitEachLabel(imd_train,50);
 % Step 1: Feature extraction.
-
-SIFT_matrix = single(ones(128,1));
-
+if strcmp(sift_type,'denseSIFT')
+    SIFT_matrix = single(zeros(128,length(imd_kmeans_vocab.Labels)*20000));
+else
+    SIFT_matrix = single(zeros(128,length(imd_kmeans_vocab.Labels)*1800));
+end
 % Setting the bin_size
 x = linspace(1,vocab_size,vocab_size);
 
 disp('Start the Feature extraction of the top set of images')
+loc_elem = 1;
 
 for i = 1:length(imd_kmeans_vocab.Labels)
     imd_kmeans_vocab.Labels(i); % Gives the label of the image that is read
@@ -30,9 +33,17 @@ for i = 1:length(imd_kmeans_vocab.Labels)
     % Extract the SIFT features to create a K_means matrix needed to find
     % the centres fot the vocal words.
     img = im2single(img);
-    [f, d] = feature_extraction(img, sift_type);
-    SIFT_matrix = [SIFT_matrix, single(d)];   
+    if numel(size(img))>=3
+        [~, d] = feature_extraction(img, sift_type);
+    else
+        [~, d] = feature_extraction(img, 'SIFT');
+    end
+    [~, length_dense_size] = size(single(d));
+    loc_elem_new = loc_elem + length_dense_size;
+    SIFT_matrix(:,loc_elem:loc_elem_new-1) = single(d);
+    loc_elem = loc_elem_new;
 end
+SIFT_matrix(:, loc_elem_new:end) = [];
 
 disp('K-means locating the centroids')
 % Step 2: Visual vocabulary
@@ -53,7 +64,11 @@ for i = 1:length(imd_train.Labels)
     label = imd_train.Labels(i); % Gives the label of the image that is read
     img = readimage(imd_train,i);
     img = im2single(img);
-    [f, d] = feature_extraction(img, 'SIFT');
+    if numel(size(img))>=3
+        [~, d] = feature_extraction(img, sift_type);
+    else
+        [~, d] = feature_extraction(img, 'SIFT');
+    end
     k = dsearchn(C,single(d)');
     % Step 4: Representing images by frequencies
     hist_im = hist(k,x);
@@ -95,9 +110,13 @@ file_loc = strings(length(imd_test.Labels),1);
 for i = 1:length(imd_test.Labels)
     label = imd_test.Labels(i); % Gives the label of the image that is read
     [img,fileinfo] = readimage(imd_test,i);
-    file_loc(i) = fileinfo.Filename;
+    file_loc(i) = strrep(fileinfo.Filename,path_to_loc,'');
     img = im2single(img);
-    [f, d] = feature_extraction(img, 'SIFT');
+    if numel(size(img))>=3
+        [~, d] = feature_extraction(img, sift_type);
+    else
+        [~, d] = feature_extraction(img, 'SIFT');
+    end
     k = dsearchn(C,single(d)');
     % Step 4: Representing images by frequencies
     hist_im = hist(k,x);
@@ -115,24 +134,32 @@ for i = 1:length(imd_test.Labels)
 end
 
 % [predicted_label, accuracy_air, decision_values]
-[predicted_label, accuracy, decision_values] = predict(double(test_air), sparse(data_test), SVMModel_air);
-air = [decision_values, file_loc];
-[elem_sort,index_sort] = sort(double(air(:,1)),'descend');
+[predicted_label, ~, decision_values] = predict(double(test_air), sparse(data_test), SVMModel_air);
+air = [decision_values, file_loc, predicted_label, test_air];
+[~,index_sort] = sort(double(air(:,1)),'descend');
 air = air(index_sort,:);
-[predicted_label, accuracy, decision_values] = predict(double(test_car), sparse(data_test), SVMModel_car);
-car = [decision_values, file_loc];
-[elem_sort,index_sort] = sort(double(car(:,1)),'descend');
+[predicted_label, ~, decision_values] = predict(double(test_car), sparse(data_test), SVMModel_car);
+car = [decision_values, file_loc, predicted_label, test_car];
+[~,index_sort] = sort(double(car(:,1)),'ascend');
 car = car(index_sort,:);
-[predicted_label, accuracy, decision_values] = predict(double(test_face), sparse(data_test), SVMModel_face);
-face = [decision_values, file_loc];
-[elem_sort,index_sort] = sort(double(face(:,1)),'descend');
+[predicted_label, ~, decision_values] = predict(double(test_face), sparse(data_test), SVMModel_face);
+face = [decision_values, file_loc, predicted_label, test_face];
+[~,index_sort] = sort(double(face(:,1)),'ascend');
 face = face(index_sort,:);
-[predicted_label, accuracy, decision_values] = predict(double(test_bike), sparse(data_test), SVMModel_bike);
-bike = [decision_values, file_loc];
-[elem_sort,index_sort] = sort(double(bike(:,1)),'descend');
+[predicted_label, ~, decision_values] = predict(double(test_bike), sparse(data_test), SVMModel_bike);
+bike = [decision_values, file_loc, predicted_label, test_bike];
+[~,index_sort] = sort(double(bike(:,1)),'ascend');
 bike = bike(index_sort,:);
 
 % Use the decision variable to calculate the mean average precision.
+frac_vocab = length(imd_kmeans_vocab.Labels)/length(imd_train.Labels);
+pos_val = sum(test_bike == 1);
+neg_val = sum(test_bike == 0);
+if strcmp(sift_type,'denseSIFT')
+    html_print(air, car, face, bike, 3, 3, sift_type, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
+else
+    html_print(air, car, face, bike, 'NaN', 'NaN', sift_type, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
+end
 end 
 
 

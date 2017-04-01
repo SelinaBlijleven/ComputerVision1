@@ -1,18 +1,26 @@
-function main_part_1()
+
 %% Main function for first part.
 
 % Find best Vocab size
-bag_of_words(400, 'SIFT')
-bag_of_words(800, 'SIFT')
-bag_of_words(1600, 'SIFT')
+disp('400, sift')
+bag_of_words(400, 'SIFT');
+
+disp('800, sift')
+bag_of_words(800, 'SIFT');
+
+disp('1600, sift')
+bag_of_words(1600, 'SIFT');
 
 % Find the best SIFT type
-bag_of_words(400, 'SIFT')
-bag_of_words(400, 'denseSIFT')
-bag_of_words(400, 'HSVSIFT')
-bag_of_words(400, 'RGBSIFT')
-bag_of_words(400, 'opponentSIFT')
+disp('400, denseSIFT')
+bag_of_words(400, 'denseSIFT');
 
+disp('400, HSVSIFT')
+bag_of_words(400, 'HSVSIFT');
 
+disp('400, RGBSIFT')
+bag_of_words(400, 'RGBSIFT');
 
-end
+disp('400, opponentSIFT')
+bag_of_words(400, 'opponentSIFT');
+
