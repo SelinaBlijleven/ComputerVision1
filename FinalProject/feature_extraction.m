@@ -30,7 +30,7 @@ function d = feature_extraction(image, method)
         d = vl_covdet(image, 'method', 'HarrisLaplace');
         
     % Hessian Laplace feature extraction
-    elseif strcmp(method, HessianLaplace')
+    elseif strcmp(method, 'HessianLaplace')
         image = reduce_dimension(image);
         d = vl_covdet(image, 'method', 'HessianLaplace');
     

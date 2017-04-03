@@ -1,5 +1,11 @@
 function [data_test, test_air, test_car, test_face, test_bike, file_loc] = test_quantizer(imd_test, vocab_size, feature_method, C)
 
+p = mfilename('fullpath');
+p_file = mfilename();
+path_to_loc = p(1:end-length(p_file));
+
+path_to_loc = strcat(path_to_loc, 'data\Caltech4\ImageData\');
+
 data_test = double(zeros(length(imd_test.Labels),vocab_size));
 test_air = zeros(length(imd_test.Labels),1);
 test_car = zeros(length(imd_test.Labels),1);
