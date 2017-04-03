@@ -1,6 +1,6 @@
 function html_print(air, car, face, bike, sift_step_size, sift_block_size, sift_type, vocab_size, vocab_fraq, positive, negative, kernel_type)
-fileID_1 = fopen(strcat('html_images_',num2str(vocab_size),'_',sift_type,'.html'),'w');
-fileID_2 = fopen('Template_Result.html','r');
+fileID_1 = fopen(strcat('Results\html_images_',num2str(vocab_size),'_',sift_type,'.html'),'w');
+fileID_2 = fopen('Results\Template_Result.html','r');
 
 
 ap_air = get_map(double(air(:,4)),double(air(:,3)));
