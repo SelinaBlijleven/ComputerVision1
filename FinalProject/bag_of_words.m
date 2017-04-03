@@ -1,7 +1,6 @@
 function [air, car, face, bike, accuracy_all] = bag_of_words(vocab_size, feature_method, learning_method)
 %% Main function for first part.
 % Execute the bag of words approach.
-
 % Input
 % vocab_size: Vocabulary size for the image 'words'
 % feature_method: Method for feature extraction (SIFT and its variants/HoG)
@@ -106,9 +105,9 @@ frac_vocab = length(imd_kmeans_vocab.Labels)/length(imd_train.Labels);
 pos_val = sum(test_bike == 1);
 neg_val = sum(test_bike == 0);
 if strcmp(feature_method,'denseSIFT')
-    html_print(air, car, face, bike, 3, 3, feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
+    html_print(air, car, face, bike, 3, 3, feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear', learning_method)
 else
-    html_print(air, car, face, bike, 'NaN', 'NaN', feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
+    html_print(air, car, face, bike, 'NaN', 'NaN', feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear', learning_method)
 end
 
 end 

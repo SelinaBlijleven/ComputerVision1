@@ -1,12 +1,9 @@
 
 %% Main function for first part.
 
-% Test
-bag_of_words(400, 'SIFT', 'k-nearest')
-
 % Find best Vocab size
 disp('400, sift')
-bag_of_words(400, 'rgbSIFT', 'SVM');
+bag_of_words(400, 'SIFT', 'SVM');
 
 disp('800, sift')
 bag_of_words(800, 'SIFT', 'SVM');
@@ -108,3 +105,11 @@ disp('2000, HSVSIFT')
 bag_of_words(2000, 'HSVSIFT', 'SVM');
 disp('4000, HSVSIFT')
 bag_of_words(4000, 'HSVSIFT', 'SVM');
+
+% Run algorithm (extra algorithm)
+disp('400, SIFT, k-nearest')
+bag_of_words(400, 'SIFT', 'k-nearest')
+disp('400, SIFT, k-nearest')
+bag_of_words(800, 'SIFT', 'k-nearest')
+
+

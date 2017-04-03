@@ -1,5 +1,5 @@
-function html_print(air, car, face, bike, sift_step_size, sift_block_size, sift_type, vocab_size, vocab_fraq, positive, negative, kernel_type)
-fileID_1 = fopen(strcat('Results\html_images_',num2str(vocab_size),'_',sift_type,'.html'),'w');
+function html_print(air, car, face, bike, sift_step_size, sift_block_size, sift_type, vocab_size, vocab_fraq, positive, negative, kernel_type, learning_method)
+fileID_1 = fopen(strcat('Results\html_images_',num2str(vocab_size),'_',sift_type,'_',learning_method,'.html'),'w');
 fileID_2 = fopen('Results\Template_Result.html','r');
 
 
