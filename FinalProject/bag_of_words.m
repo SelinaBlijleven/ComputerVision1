@@ -1,10 +1,11 @@
-function [air, car, face, bike, accuracy_all] = bag_of_words(vocab_size, feature_method)
+function [air, car, face, bike, accuracy_all] = bag_of_words(vocab_size, feature_method, learning_method)
 %% Main function for first part.
 % Execute the bag of words approach.
 
 % Input
 % vocab_size: Vocabulary size for the image 'words'
 % feature_method: Method for feature extraction (SIFT and its variants/HoG)
+% learning_method: Classifier method
 
 % Step 0: read in all the images.
 p = mfilename('fullpath');
@@ -104,10 +105,18 @@ end
 disp('Now performing classification')
 % Step 5: Classification.
 
-SVMModel_air = train(double(label_air), sparse(data));
-SVMModel_car = train(double(label_car), sparse(data));
-SVMModel_face = train(double(label_face), sparse(data));
-SVMModel_bike = train(double(label_bike), sparse(data));
+if strcmp(learning_method, 'k-nearest')
+    KNN_air = fitcknn(sparse(data), double(label_air));
+    KNN_car = fitcknn(sparse(data), double(label_car));
+    KNN_face = fitcknn(sparse(data), double(label_face));
+    KNN_bike = fitcknn(sparse(data), double(label_bike));
+    
+else
+    SVMModel_air = train(double(label_air), sparse(data));
+    SVMModel_car = train(double(label_car), sparse(data));
+    SVMModel_face = train(double(label_face), sparse(data));
+    SVMModel_bike = train(double(label_bike), sparse(data));
+end
 
 disp('Testing classifications')
 % Build TestSet:
@@ -149,22 +158,48 @@ for i = 1:length(imd_test.Labels)
 end
 
 % [predicted_label, accuracy_air, decision_values]
-[predicted_label, acc_air, decision_values] = predict(double(test_air), sparse(data_test), SVMModel_air);
-air = [decision_values, file_loc, predicted_label, test_air];
-[~,index_sort] = sort(double(air(:,1)),'descend');
-air = air(index_sort,:);
-[predicted_label, acc_car, decision_values] = predict(double(test_car), sparse(data_test), SVMModel_car);
-car = [decision_values, file_loc, predicted_label, test_car];
-[~,index_sort] = sort(double(car(:,1)),'ascend');
-car = car(index_sort,:);
-[predicted_label, acc_face, decision_values] = predict(double(test_face), sparse(data_test), SVMModel_face);
-face = [decision_values, file_loc, predicted_label, test_face];
-[~,index_sort] = sort(double(face(:,1)),'ascend');
-face = face(index_sort,:);
-[predicted_label, acc_bike, decision_values] = predict(double(test_bike), sparse(data_test), SVMModel_bike);
-bike = [decision_values, file_loc, predicted_label, test_bike];
-[~,index_sort] = sort(double(bike(:,1)),'ascend');
-bike = bike(index_sort,:);
+if strcmp(learning_method, 'k-nearest')
+    [predicted_label, decision_values, ~] = predict(KNN_air, data_test);
+    air = [decision_values, file_loc, predicted_label, test_air];
+    [~,index_sort] = sort(double(air(:,1)),'descend');
+    air = air(index_sort,:);
+    
+    [predicted_label, decision_values, ~] = predict(KNN_car, data_test);
+    car = [decision_values, file_loc, predicted_label, test_car];
+    [~,index_sort] = sort(double(car(:,1)),'ascend');
+    car = car(index_sort,:);
+    
+    [predicted_label, decision_values, ~] = predict(KNN_face, data_test);
+    face = [decision_values, file_loc, predicted_label, test_face];
+    [~,index_sort] = sort(double(face(:,1)),'ascend');
+    face = face(index_sort,:);
+    
+    [predicted_label, decision_values, ~] = predict(KNN_bike, data_test);
+    bike = [decision_values, file_loc, predicted_label, test_bike];
+    [~,index_sort] = sort(double(bike(:,1)),'ascend');
+    bike = bike(index_sort,:);
+    
+else
+    [predicted_label, acc_air, decision_values] = predict(double(test_air), sparse(data_test), SVMModel_air);
+    air = [decision_values, file_loc, predicted_label, test_air];
+    [~,index_sort] = sort(double(air(:,1)),'descend');
+    air = air(index_sort,:);
+    
+    [predicted_label, acc_car, decision_values] = predict(double(test_car), sparse(data_test), SVMModel_car);
+    car = [decision_values, file_loc, predicted_label, test_car];
+    [~,index_sort] = sort(double(car(:,1)),'ascend');
+    car = car(index_sort,:);
+    
+    [predicted_label, acc_face, decision_values] = predict(double(test_face), sparse(data_test), SVMModel_face);
+    face = [decision_values, file_loc, predicted_label, test_face];
+    [~,index_sort] = sort(double(face(:,1)),'ascend');
+    face = face(index_sort,:);
+    
+    [predicted_label, acc_bike, decision_values] = predict(double(test_bike), sparse(data_test), SVMModel_bike);
+    bike = [decision_values, file_loc, predicted_label, test_bike];
+    [~,index_sort] = sort(double(bike(:,1)),'ascend');
+    bike = bike(index_sort,:);
+end
 
 % Use the decision variable to calculate the mean average precision.
 frac_vocab = length(imd_kmeans_vocab.Labels)/length(imd_train.Labels);
