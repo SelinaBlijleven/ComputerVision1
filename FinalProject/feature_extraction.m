@@ -5,7 +5,7 @@ function d = feature_extraction(image, method)
     % Input
     % Image: An image for feature extraction
     % Method: SIFT method from SIFT, denseSIFT, rgbSIFT, RGBSIFT, 
-    %         opponentSIFT, HoG
+    %         opponentSIFT, DoG, Harris Laplace, Hessian Laplace
     
     % Output
     % d: Descriptors of image
@@ -19,9 +19,20 @@ function d = feature_extraction(image, method)
         image = reduce_dimension(image);
         [f, d] = vl_sift(image);
         
-    elseif strcmp(method, 'CovDet')
+    % Difference of Gaussian feature extraction
+    elseif strcmp(method, 'DoG')
         image = reduce_dimension(image);
         d = vl_covdet(image);
+        
+    % Harris Laplace feature extraction
+    elseif strcmp(method, 'HarrisLaplace')
+        image = reduce_dimension(image);
+        d = vl_covdet(image, 'method', 'HarrisLaplace');
+        
+    % Hessian Laplace feature extraction
+    elseif strcmp(method, HessianLaplace')
+        image = reduce_dimension(image);
+        d = vl_covdet(image, 'method', 'HessianLaplace');
     
     % Dense SIFT with VLFeat
     elseif strcmp(method, 'denseSIFT')

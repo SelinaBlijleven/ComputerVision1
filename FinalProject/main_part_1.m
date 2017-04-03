@@ -1,10 +1,6 @@
 
 %% Main function for first part.
 
-% Test
-disp('400, test')
-bag_of_words(400, 'CovDet')
-
 % Find best Vocab size
 disp('400, sift')
 bag_of_words(400, 'rgbSIFT');
@@ -38,6 +34,16 @@ disp('400, opponentSIFT')
 bag_of_words(400, 'opponentSIFT');
 
 % OPTIONAL RUNS
+
+% Other feature extraction
+disp('400, DoG')
+bag_of_words(400, 'DoG');
+
+disp('400, HarrisLaplace')
+bag_of_words(400, 'HarrisLaplace');
+
+disp('400, HessianLaplace')
+bag_of_words(400, 'HessianLaplace');
 
 % Running all SIFTS with all vocabulary sizes
 % 800
