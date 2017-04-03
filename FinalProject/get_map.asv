@@ -8,32 +8,27 @@ function map = get_map(h, y)
     % h: Hypothesis classification
     % y: Actual classification
     
-    % Output
-    % map: Mean average precision
-    
     % Get amount of images
     [x, n] = size(h);
     
-    % Initialize zero vector of prediction length
-    correctness = zeros(x, n);
+    % Get correctness of predictions
+    correctness = 
     
-    % For each example
     for i=1:x
-        % Set 1 for matching prediction actual values
-        if h(i) == y(i)
-            correctness(i, :) = 1;
-        end
-    end
+        if 
     
     % Initialize sum
     ap = 0;
     % For each example
-    for rank=1:x
-        % Get amount of correct images in first i images
-        correct = sum(correctness(1:rank, :));
-        ap = ap + correct/rank;
+    for i=1:x
+        % Compare classification
+        if h(i) == y(i)
+            % Add 1/rank to sum if correct
+            ap = ap + 1/i;
+        end
     end
     
     % Calculate mean
     map = (1/50) * ap;
+    
 end

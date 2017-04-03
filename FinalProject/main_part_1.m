@@ -3,7 +3,7 @@
 
 % Find best Vocab size
 disp('400, sift')
-bag_of_words(400, 'SIFT');
+bag_of_words(400, 'rgbSIFT');
 
 disp('800, sift')
 bag_of_words(800, 'SIFT');
@@ -23,4 +23,3 @@ bag_of_words(400, 'RGBSIFT');
 
 disp('400, opponentSIFT')
 bag_of_words(400, 'opponentSIFT');
-

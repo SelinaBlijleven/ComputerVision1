@@ -22,9 +22,13 @@ function [f, d] = color_SIFT(image, colorspace)
     % Convert to HSV space if desired.
     if strcmp(colorspace, 'HSV')
         image = rgb2hsv(image);
+        
+    elseif strcmp(colorspace, 'rgb')
+        image = RGB2rgb(image);
     
     elseif strcmp(colorspace, 'opponent')
         image = rgb2opponent(image);
+
     end
     
     % Extract keypoints from single channel.

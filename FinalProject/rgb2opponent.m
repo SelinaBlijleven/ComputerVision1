@@ -23,5 +23,4 @@ function O = rgb2opponent(image)
     O(:, :, 1) = (R - G)./ sqrt(2);             % Red - Green
     O(:, :, 2) = (R + G - 2 * B)./ sqrt(6);     % Yellow - Blue
     O(:, :, 3) = (R + G + B)./ sqrt(3);         % Luminance
-    
 end

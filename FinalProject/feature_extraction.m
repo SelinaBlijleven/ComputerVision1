@@ -28,6 +28,9 @@ function [f, d] = feature_extraction(image, method)
     elseif strcmp(method, 'HSVSIFT')
         [f, d] = color_SIFT(image, 'HSV');
     
+    elseif strcmp(method, 'rgbSIFT')
+        [f, d] = color_SIFT(image, 'rgb');
+        
     elseif strcmp(method, 'RGBSIFT')
         [f, d] = color_SIFT(image, 'RGB');
     
@@ -36,6 +39,6 @@ function [f, d] = feature_extraction(image, method)
         
     else
         disp('SIFT method not recognized. Recognized methods are:')
-        disp('SIFT, denseSIFT, HSVSIFT, RGBSIFT, opponentSIFT')
+        disp('SIFT, denseSIFT, HSVSIFT, rgbSIFT, RGBSIFT, opponentSIFT')
     end
 end
