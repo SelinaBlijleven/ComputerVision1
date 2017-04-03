@@ -1,14 +1,13 @@
-function [f, d] = feature_extraction(image, method)
+function d = feature_extraction(image, method)
     % Function that returns features and descriptors from an image
     % with the given method.
     
     % Input
     % Image: An image for feature extraction
     % Method: SIFT method from SIFT, denseSIFT, rgbSIFT, RGBSIFT, 
-    %         opponentSIFT
+    %         opponentSIFT, HoG
     
     % Output
-    % f: Features of image
     % d: Descriptors of image
     
     % Empty initialization
@@ -19,6 +18,10 @@ function [f, d] = feature_extraction(image, method)
     if strcmp(method, 'SIFT')
         image = reduce_dimension(image);
         [f, d] = vl_sift(image);
+        
+    elseif strcmp(method, 'CovDet')
+        image = reduce_dimension(image);
+        d = vl_covdet(image);
     
     % Dense SIFT with VLFeat
     elseif strcmp(method, 'denseSIFT')

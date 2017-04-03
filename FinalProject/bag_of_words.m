@@ -1,9 +1,13 @@
-function [air, car, face, bike] = bag_of_words(vocab_size, sift_type)
+function [air, car, face, bike] = bag_of_words(vocab_size, feature_method)
 %% Main function for first part.
+% Execute the bag of words approach.
+
+% Input
+% vocab_size: Vocabulary size for the image 'words'
+% feature_method: Method for feature extraction (SIFT and its variants/HoG)
 
 max_h = 0;
 max_w = 0;
-
 
 % Step 0: read in all the images.
 p = mfilename('fullpath');
@@ -15,8 +19,9 @@ path_to_loc = strcat(path_to_loc, 'data\Caltech4\ImageData\');
 categories_1 = {'airplanes_train', 'cars_train', 'faces_train', 'motorbikes_train'};
 imd_train = imageDatastore(fullfile(path_to_loc, categories_1), 'LabelSource', 'foldernames');
 imd_kmeans_vocab = splitEachLabel(imd_train,50);
+
 % Step 1: Feature extraction.
-if strcmp(sift_type,'denseSIFT')
+if strcmp(feature_method,'denseSIFT')
     SIFT_matrix = single(zeros(128,length(imd_kmeans_vocab.Labels)*20000));
 else
     SIFT_matrix = single(zeros(128,length(imd_kmeans_vocab.Labels)*1800));
@@ -33,10 +38,16 @@ for i = 1:length(imd_kmeans_vocab.Labels)
     % Extract the SIFT features to create a K_means matrix needed to find
     % the centres fot the vocal words.
     img = im2single(img);
+    
+    % Check if RGB or grayscale
     if numel(size(img))>=3
-        [~, d] = feature_extraction(img, sift_type);
+        % If image is RGB perform given SIFT type.
+        d = feature_extraction(img, feature_method);
     else
-        [~, d] = feature_extraction(img, 'SIFT');
+        % If image is grayscale default to standard SIFT.
+        disp('Grayscale image found. ColorSIFT is not supported.')
+        disp('Now using standard SIFT.')
+        d = feature_extraction(img, 'SIFT');
     end
     [~, length_dense_size] = size(single(d));
     loc_elem_new = loc_elem + length_dense_size;
@@ -46,7 +57,7 @@ end
 SIFT_matrix(:, loc_elem_new:end) = [];
 
 disp('K-means locating the centroids')
-% Step 2: Visual vocabulary
+% Step 2: Construct visual vocabulary
 [C] = vl_kmeans(SIFT_matrix,vocab_size,'MaxNumIterations',100);
 
 % Transpose to get correct columns
@@ -65,11 +76,12 @@ for i = 1:length(imd_train.Labels)
     img = readimage(imd_train,i);
     img = im2single(img);
     if numel(size(img))>=3
-        [~, d] = feature_extraction(img, sift_type);
+        d = feature_extraction(img, feature_method);
     else
-        [~, d] = feature_extraction(img, 'SIFT');
+        d = feature_extraction(img, 'SIFT');
     end
     k = dsearchn(C,single(d)');
+    
     % Step 4: Representing images by frequencies
     hist_im = hist(k,x);
     hist_im = double(hist_im ./ max(hist_im));
@@ -85,8 +97,7 @@ for i = 1:length(imd_train.Labels)
     end
 end
 
-
-disp('Classification')
+disp('Now performing classification')
 % Step 5: Classification.
 
 SVMModel_air = train(double(label_air), sparse(data));
@@ -94,8 +105,7 @@ SVMModel_car = train(double(label_car), sparse(data));
 SVMModel_face = train(double(label_face), sparse(data));
 SVMModel_bike = train(double(label_bike), sparse(data));
 
-disp('Testing')
-
+disp('Testing classifications')
 % Build TestSet:
 categories_2 = {'airplanes_test', 'cars_test', 'faces_test', 'motorbikes_test'};
 imd_test = imageDatastore(fullfile(path_to_loc, categories_2), 'LabelSource', 'foldernames');
@@ -113,11 +123,12 @@ for i = 1:length(imd_test.Labels)
     file_loc(i) = strrep(fileinfo.Filename,path_to_loc,'');
     img = im2single(img);
     if numel(size(img))>=3
-        [~, d] = feature_extraction(img, sift_type);
+        d = feature_extraction(img, feature_method);
     else
-        [~, d] = feature_extraction(img, 'SIFT');
+        d = feature_extraction(img, 'SIFT');
     end
     k = dsearchn(C,single(d)');
+    
     % Step 4: Representing images by frequencies
     hist_im = hist(k,x);
     hist_im = double(hist_im ./ max(hist_im));
@@ -155,14 +166,9 @@ bike = bike(index_sort,:);
 frac_vocab = length(imd_kmeans_vocab.Labels)/length(imd_train.Labels);
 pos_val = sum(test_bike == 1);
 neg_val = sum(test_bike == 0);
-if strcmp(sift_type,'denseSIFT')
-    html_print(air, car, face, bike, 3, 3, sift_type, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
+if strcmp(feature_method,'denseSIFT')
+    html_print(air, car, face, bike, 3, 3, feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
 else
-    html_print(air, car, face, bike, 'NaN', 'NaN', sift_type, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
+    html_print(air, car, face, bike, 'NaN', 'NaN', feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
 end
 end 
-
-
-
-
-

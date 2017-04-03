@@ -2,8 +2,7 @@
 %% Main function for first part.
 
 % Test
-disp('400, test')
-bag_of_words(400, 'CovDet')
+dis[
 
 % Find best Vocab size
 disp('400, sift')
