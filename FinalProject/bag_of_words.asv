@@ -1,10 +1,13 @@
-function [air, car, face, bike, accuracy_all] = bag_of_words(vocab_size, feature_method)
+function [air, car, face, bike] = bag_of_words(vocab_size, feature_method)
 %% Main function for first part.
 % Execute the bag of words approach.
 
 % Input
 % vocab_size: Vocabulary size for the image 'words'
 % feature_method: Method for feature extraction (SIFT and its variants/HoG)
+
+max_h = 0;
+max_w = 0;
 
 % Step 0: read in all the images.
 p = mfilename('fullpath');
@@ -44,7 +47,7 @@ for i = 1:length(imd_kmeans_vocab.Labels)
     img = im2single(img);
     
     % Check if RGB or grayscale
-    if numel(size(img))>=3 || not(strncmp(fliplr(feature_method),fliplr('SIFT'),4))
+    if numel(size(img))>=3
         % If image is RGB perform given SIFT type.
         d = feature_extraction(img, feature_method);
     else
@@ -79,7 +82,7 @@ for i = 1:length(imd_train.Labels)
     label = imd_train.Labels(i); % Gives the label of the image that is read
     img = readimage(imd_train,i);
     img = im2single(img);
-    if numel(size(img))>=3 || not(strncmp(fliplr(feature_method),fliplr('SIFT'),4))
+    if numel(size(img))>=3
         d = feature_extraction(img, feature_method);
     else
         d = feature_extraction(img, 'SIFT');
@@ -126,7 +129,7 @@ for i = 1:length(imd_test.Labels)
     [img,fileinfo] = readimage(imd_test,i);
     file_loc(i) = strrep(fileinfo.Filename,path_to_loc,'');
     img = im2single(img);
-    if numel(size(img))>=3 || not(strncmp(fliplr(feature_method),fliplr('SIFT'),4))
+    if numel(size(img))>=3
         d = feature_extraction(img, feature_method);
     else
         d = feature_extraction(img, 'SIFT');
@@ -176,5 +179,5 @@ else
     html_print(air, car, face, bike, 'NaN', 'NaN', feature_method, vocab_size, frac_vocab, pos_val, neg_val, 'Linear')
 end
 
-accuracy_all = [acc_air,acc_car,acc_face,acc_bike];
+accuracy_all = [acc_air,acc_,,acc_bike
 end 
