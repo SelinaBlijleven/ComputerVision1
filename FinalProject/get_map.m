@@ -35,5 +35,5 @@ function map = get_map(h, y)
     end
     
     % Calculate mean
-    map = (1/50) * ap;
+    map = (1/200) * ap;
 end
