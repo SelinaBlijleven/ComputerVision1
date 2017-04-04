@@ -62,15 +62,13 @@ imd_test = imageDatastore(fullfile(path_to_loc, categories_2), 'LabelSource', 'f
 [data_test, test_air, test_car, test_face, test_bike, file_loc] = test_quantizer(imd_test, vocab_size, feature_method, C);
 
 % [predicted_label, accuracy_air, decision_values]
-% Get decision values and predict labels for k-nearest or Naive-Bayes
-% (these use the same predict function)
+% Predict labels and 
 if or(strcmp(learning_method, 'k-nearest'), strcmp(learning_method, 'naive-bayes'))
     [air_predicted_label, air_decision_values, ~] = predict(model_air, data_test);
     [car_predicted_label, car_decision_values, ~] = predict(model_car, data_test);
     [face_predicted_label, face_decision_values, ~] = predict(model_face, data_test);
     [bike_predicted_label, bike_decision_values, ~] = predict(model_bike, data_test);
     
-% Use a different predict function for the SVM model
 else
     [air_predicted_label, acc_air, air_decision_values] = predict(double(test_air), sparse(data_test), SVMModel_air);    
     [car_predicted_label, acc_car, car_decision_values] = predict(double(test_car), sparse(data_test), SVMModel_car);
@@ -78,7 +76,6 @@ else
     [bike_predicted_label, acc_bike, bike_decision_values] = predict(double(test_bike), sparse(data_test), SVMModel_bike);
 end
 
-% Sort all labels by decision values
 air = [air_decision_values, file_loc, air_predicted_label, test_air];
 [~,index_sort] = sort(double(air(:,1)),'descend');
 air = air(index_sort,:);
@@ -94,8 +91,6 @@ face = face(index_sort,:);
 bike = [bike_decision_values, file_loc, bike_predicted_label, test_bike];
 [~,index_sort] = sort(double(bike(:,1)),'ascend');
 bike = bike(index_sort,:);
-
-% Init accuracy
 accuracy_all = [];
 
 % Use the decision variable to calculate the mean average precision.
