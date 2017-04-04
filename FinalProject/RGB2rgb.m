@@ -10,16 +10,17 @@ function rgb_image = RGB2rgb(image)
     
     % Get image size
     [m, n, dim] = size(image);
-    
+    image = im2single(image);
     % Separate RGB channels for calculation
     R = image(:, :, 1);
     G = image(:, :, 2);
     B = image(:, :, 3);
-    
+
     % Initialize rgb image
+    rgb_matrix = R+G+B;
     rgb_image = zeros(m, n, dim);
     
-    rgb_image(:, :, 1) = R ./ (R+G+B);
-    rgb_image(:, :, 2) = G ./ (R+G+B);
-    rgb_image(:, :, 3) = B ./ (R+G+B);
+    rgb_image(:, :, 1) = R ./ rgb_matrix;
+    rgb_image(:, :, 2) = G ./ rgb_matrix;
+    rgb_image(:, :, 3) = B ./ rgb_matrix;
 end
