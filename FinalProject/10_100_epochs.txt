@@ -1,0 +1,34 @@
+		numEpochs ,batchSize, weightDecay
+cnn_assignment-lenet-10-100-0.000100 & 0.97 & 89.50 & 97.00 
+cnn_assignment-lenet-10-100-0.000200 & 0.95 & 90.00 & 97.00 
+cnn_assignment-lenet-10-100-0.000500 & 0.94 & 90.00 & 96.00 
+cnn_assignment-lenet-10-100-0.001000 & 0.96 & 90.00 & 97.00 
+cnn_assignment-lenet-10-20-0.000100 & 0.98 & 90.00 & 99.00 
+cnn_assignment-lenet-10-20-0.000200 & 0.99 & 89.50 & 99.00 
+cnn_assignment-lenet-10-20-0.000500 & 0.98 & 89.50 & 99.00 
+cnn_assignment-lenet-10-20-0.001000 & 0.98 & 89.50 & 98.50 
+cnn_assignment-lenet-10-40-0.000100 & 0.97 & 89.50 & 99.00 
+cnn_assignment-lenet-10-40-0.000200 & 0.96 & 90.00 & 99.50 
+cnn_assignment-lenet-10-40-0.000500 & 0.98 & 90.00 & 99.00 
+cnn_assignment-lenet-10-40-0.001000 & 0.98 & 90.00 & 98.50 
+cnn_assignment-lenet-10-50-0.000100 & 0.97 & 90.00 & 98.50 
+cnn_assignment-lenet-10-50-0.000200 & 0.99 & 89.50 & 98.00 
+cnn_assignment-lenet-10-50-0.000500 & 0.99 & 89.50 & 98.50 
+cnn_assignment-lenet-10-50-0.001000 & 0.97 & 89.50 & 98.50 
+
+cnn_assignment-lenet-100-100-0.000100 & 1.00 & 89.00 & 99.00 
+cnn_assignment-lenet-100-100-0.000200 & 1.00 & 90.50 & 99.50 
+cnn_assignment-lenet-100-100-0.000500 & 1.00 & 90.00 & 99.50 
+cnn_assignment-lenet-100-100-0.001000 & 1.00 & 90.50 & 99.50 
+cnn_assignment-lenet-100-20-0.000100 & 1.00 & 89.00 & 99.50 
+cnn_assignment-lenet-100-20-0.000200 & 0.98 & 90.50 & 99.00 
+cnn_assignment-lenet-100-20-0.000500 & 0.99 & 90.50 & 99.00 
+cnn_assignment-lenet-100-20-0.001000 & 0.99 & 90.50 & 99.00 
+cnn_assignment-lenet-100-40-0.000100 & 0.99 & 90.50 & 99.00 
+cnn_assignment-lenet-100-40-0.000200 & 0.99 & 90.00 & 99.50 
+cnn_assignment-lenet-100-40-0.000500 & 0.99 & 90.00 & 99.50 
+cnn_assignment-lenet-100-40-0.001000 & 0.99 & 90.00 & 99.50 
+cnn_assignment-lenet-100-50-0.000100 & 1.00 & 90.00 & 99.50 
+cnn_assignment-lenet-100-50-0.000200 & 1.00 & 89.00 & 99.50 
+cnn_assignment-lenet-100-50-0.000500 & 1.00 & 89.00 & 99.50 
+cnn_assignment-lenet-100-50-0.001000 & 1.00 & 89.00 & 99.50 
