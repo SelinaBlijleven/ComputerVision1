@@ -1,0 +1,136 @@
+400, sift
+Accuracy = 95.5% (191/200)
+Accuracy = 95% (190/200)
+Accuracy = 93.5% (187/200)
+Accuracy = 92.5% (185/200)
+800, sift
+Accuracy = 93.5% (187/200)
+Accuracy = 93.5% (187/200)
+Accuracy = 94.5% (189/200)
+Accuracy = 95% (190/200)
+1600, sift
+Accuracy = 95% (190/200)
+Accuracy = 94.5% (189/200)
+Accuracy = 92.5% (185/200)
+Accuracy = 95% (190/200)
+2000, sift
+Accuracy = 95.5% (191/200)
+Accuracy = 93% (186/200)
+Accuracy = 96% (192/200)
+Accuracy = 96% (192/200)
+4000, sift
+Accuracy = 95% (190/200)
+Accuracy = 93.5% (187/200)
+Accuracy = 95.5% (191/200)
+Accuracy = 96% (192/200)
+400, denseSIFT
+Accuracy = 98.5% (197/200)
+Accuracy = 98.5% (197/200)
+Accuracy = 100% (200/200)
+Accuracy = 97.5% (195/200)
+400, HSVSIFT
+Accuracy = 98% (196/200)
+Accuracy = 93% (186/200)
+Accuracy = 96.5% (193/200)
+Accuracy = 95% (190/200)
+400, RGBSIFT
+Accuracy = 94% (188/200)
+Accuracy = 93% (186/200)
+Accuracy = 96% (192/200)
+Accuracy = 94% (188/200)
+400, opponentSIFT
+Accuracy = 94.5% (189/200)
+Accuracy = 94.5% (189/200)
+Accuracy = 96% (192/200)
+Accuracy = 93.5% (187/200)
+400, DoG
+Accuracy = 91% (182/200)
+Accuracy = 95% (190/200)
+Accuracy = 85.5% (171/200)
+Accuracy = 86% (172/200)
+400, HarrisLaplace
+Accuracy = 92.5% (185/200)
+Accuracy = 92.5% (185/200)
+Accuracy = 88.5% (177/200)
+Accuracy = 90% (180/200)
+400, HessianLaplace
+Accuracy = 94% (188/200)
+Accuracy = 93.5% (187/200)
+Accuracy = 91% (182/200)
+Accuracy = 92% (184/200)
+800, denseSIFT
+Accuracy = 98.5% (197/200)
+Accuracy = 98.5% (197/200)
+Accuracy = 99.5% (199/200)
+Accuracy = 96.5% (193/200)
+800, HSVSIFT
+Accuracy = 95.5% (191/200)
+Accuracy = 92.5% (185/200)
+Accuracy = 95.5% (191/200)
+Accuracy = 96% (192/200)
+800, RGBSIFT
+Accuracy = 97% (194/200)
+Accuracy = 94.5% (189/200)
+Accuracy = 96.5% (193/200)
+Accuracy = 97.5% (195/200)
+800, opponentSIFT
+Accuracy = 95% (190/200)
+Accuracy = 93.5% (187/200)
+Accuracy = 96% (192/200)
+Accuracy = 96% (192/200)
+1600, denseSIFT
+Accuracy = 98.5% (197/200)
+Accuracy = 98.5% (197/200)
+Accuracy = 99.5% (199/200)
+Accuracy = 96% (192/200)
+1600, HSVSIFT
+Accuracy = 98% (196/200)
+Accuracy = 95.5% (191/200)
+Accuracy = 96.5% (193/200)
+Accuracy = 96.5% (193/200)
+1600, RGBSIFT
+Accuracy = 98% (196/200)
+Accuracy = 96% (192/200)
+Accuracy = 96.5% (193/200)
+Accuracy = 96.5% (193/200)
+1600, opponentSIFT
+Accuracy = 94% (188/200)
+Accuracy = 97.5% (195/200)
+Accuracy = 97.5% (195/200)
+Accuracy = 97.5% (195/200)
+2000, denseSIFT
+Accuracy = 99% (198/200)
+Accuracy = 98% (196/200)
+Accuracy = 100% (200/200)
+Accuracy = 96.5% (193/200)
+2000, HSVSIFT
+Accuracy = 100% (200/200)
+Accuracy = 93.5% (187/200)
+Accuracy = 96% (192/200)
+Accuracy = 96% (192/200)
+2000, RGBSIFT
+Accuracy = 97% (194/200)
+Accuracy = 97.5% (195/200)
+Accuracy = 96.5% (193/200)
+Accuracy = 95% (190/200)
+2000, opponentSIFT
+Accuracy = 96.5% (193/200)
+Accuracy = 95.5% (191/200)
+Accuracy = 98.5% (197/200)
+Accuracy = 96% (192/200)
+4000, denseSIFT
+Accuracy = 99% (198/200)
+Accuracy = 98% (196/200)
+Accuracy = 100% (200/200)
+Accuracy = 96% (192/200)
+4000, HSVSIFT
+Accuracy = 98.5% (197/200)
+Accuracy = 95% (190/200)
+Accuracy = 97% (194/200)
+Accuracy = 97% (194/200)
+4000, RGBSIFT
+Accuracy = 98% (196/200)
+Accuracy = 97% (194/200)
+Accuracy = 97% (194/200)
+Accuracy = 97% (194/200)
+4000, opponentSIFT
